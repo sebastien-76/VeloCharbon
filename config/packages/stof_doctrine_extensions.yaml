@@ -4,6 +4,5 @@ stof_doctrine_extensions:
     default_locale: fr_FR
     orm:
         default:
-            default_locale:
-                timestampable: true
-                softdeleteable: truecleargit            
+            timestampable: true
+            softdeleteable: true    
