@@ -46,6 +46,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $userName = null;
 
     /**
+
+     * @var Collection<int, Forum>
+     */
+    #[ORM\OneToMany(targetEntity: Forum::class, mappedBy: 'user')]
+    private Collection $forums;
+
+    public function __construct()
+    {
+        $this->forums = new ArrayCollection();
+
      * @var Collection<int, Blog>
      */
     #[ORM\OneToMany(targetEntity: Blog::class, mappedBy: 'user')]
@@ -54,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->blogs = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -144,6 +155,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+
+     * @return Collection<int, Forum>
+     */
+    public function getForums(): Collection
+    {
+        return $this->forums;
+    }
+
+    public function addForum(Forum $forum): static
+    {
+        if (!$this->forums->contains($forum)) {
+            $this->forums->add($forum);
+            $forum->setUser($this);
+
      * @return Collection<int, Blog>
      */
     public function getBlogs(): Collection
@@ -156,10 +181,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->blogs->contains($blog)) {
             $this->blogs->add($blog);
             $blog->setUser($this);
+
         }
 
         return $this;
     }
+
+
+    public function removeForum(Forum $forum): static
+    {
+        if ($this->forums->removeElement($forum)) {
+            // set the owning side to null (unless already changed)
+            if ($forum->getUser() === $this) {
+                $forum->setUser(null);
 
     public function removeBlog(Blog $blog): static
     {
@@ -167,6 +201,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($blog->getUser() === $this) {
                 $blog->setUser(null);
+
             }
         }
 
