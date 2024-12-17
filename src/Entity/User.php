@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -42,6 +44,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $userName = null;
+
+    /**
+     * @var Collection<int, Blog>
+     */
+    #[ORM\OneToMany(targetEntity: Blog::class, mappedBy: 'user')]
+    private Collection $blogs;
+
+    public function __construct()
+    {
+        $this->blogs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,6 +139,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserName(string $userName): static
     {
         $this->userName = $userName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Blog>
+     */
+    public function getBlogs(): Collection
+    {
+        return $this->blogs;
+    }
+
+    public function addBlog(Blog $blog): static
+    {
+        if (!$this->blogs->contains($blog)) {
+            $this->blogs->add($blog);
+            $blog->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlog(Blog $blog): static
+    {
+        if ($this->blogs->removeElement($blog)) {
+            // set the owning side to null (unless already changed)
+            if ($blog->getUser() === $this) {
+                $blog->setUser(null);
+            }
+        }
 
         return $this;
     }
