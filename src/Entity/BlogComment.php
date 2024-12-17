@@ -24,6 +24,10 @@ class BlogComment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'blogComment')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Blog $blog = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +41,18 @@ class BlogComment
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBlog(): ?Blog
+    {
+        return $this->blog;
+    }
+
+    public function setBlog(?Blog $blog): static
+    {
+        $this->blog = $blog;
 
         return $this;
     }
