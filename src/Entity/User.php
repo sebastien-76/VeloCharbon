@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use SoftDeleteableEntity;
     use TimestampableEntity;
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -55,17 +55,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->forums = new ArrayCollection();
+        $this->blogs = new ArrayCollection();
+    }
 
+    /**
      * @var Collection<int, Blog>
      */
     #[ORM\OneToMany(targetEntity: Blog::class, mappedBy: 'user')]
     private Collection $blogs;
 
-    public function __construct()
-    {
-        $this->blogs = new ArrayCollection();
-
-    }
 
     public function getId(): ?int
     {
@@ -168,7 +166,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->forums->contains($forum)) {
             $this->forums->add($forum);
             $forum->setUser($this);
+        }
 
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Blog>
      */
     public function getBlogs(): Collection
@@ -181,7 +184,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if (!$this->blogs->contains($blog)) {
             $this->blogs->add($blog);
             $blog->setUser($this);
-
         }
 
         return $this;
@@ -194,6 +196,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($forum->getUser() === $this) {
                 $forum->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 
     public function removeBlog(Blog $blog): static
     {
@@ -201,7 +208,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($blog->getUser() === $this) {
                 $blog->setUser(null);
-
             }
         }
 
