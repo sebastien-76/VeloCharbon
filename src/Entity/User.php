@@ -56,6 +56,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->forums = new ArrayCollection();
         $this->blogs = new ArrayCollection();
+        $this->blogComment = new ArrayCollection();
+        $this->forumComment = new ArrayCollection();
     }
 
     /**
@@ -63,6 +65,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\OneToMany(targetEntity: Blog::class, mappedBy: 'user')]
     private Collection $blogs;
+
+    /**
+     * @var Collection<int, BlogComment>
+     */
+    #[ORM\OneToMany(targetEntity: BlogComment::class, mappedBy: 'user')]
+    private Collection $blogComment;
+
+    /**
+     * @var Collection<int, ForumComment>
+     */
+    #[ORM\OneToMany(targetEntity: ForumComment::class, mappedBy: 'user')]
+    private Collection $forumComment;
 
 
     public function getId(): ?int
@@ -208,6 +222,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($blog->getUser() === $this) {
                 $blog->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, BlogComment>
+     */
+    public function getBlogComment(): Collection
+    {
+        return $this->blogComment;
+    }
+
+    public function addBlogComment(BlogComment $blogComment): static
+    {
+        if (!$this->blogComment->contains($blogComment)) {
+            $this->blogComment->add($blogComment);
+            $blogComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBlogComment(BlogComment $blogComment): static
+    {
+        if ($this->blogComment->removeElement($blogComment)) {
+            // set the owning side to null (unless already changed)
+            if ($blogComment->getUser() === $this) {
+                $blogComment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ForumComment>
+     */
+    public function getForumComment(): Collection
+    {
+        return $this->forumComment;
+    }
+
+    public function addForumComment(ForumComment $forumComment): static
+    {
+        if (!$this->forumComment->contains($forumComment)) {
+            $this->forumComment->add($forumComment);
+            $forumComment->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumComment(ForumComment $forumComment): static
+    {
+        if ($this->forumComment->removeElement($forumComment)) {
+            // set the owning side to null (unless already changed)
+            if ($forumComment->getUser() === $this) {
+                $forumComment->setUser(null);
             }
         }
 
