@@ -28,6 +28,10 @@ class BlogComment
     #[ORM\JoinColumn(nullable: false)]
     private ?Blog $blog = null;
 
+    #[ORM\ManyToOne(inversedBy: 'blogComment')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +57,18 @@ class BlogComment
     public function setBlog(?Blog $blog): static
     {
         $this->blog = $blog;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
