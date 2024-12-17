@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ForumRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -26,6 +28,21 @@ class Forum
     #[ORM\ManyToOne(inversedBy: 'forum')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
+
+    /**
+     * @var Collection<int, ForumComment>
+     */
+    #[ORM\OneToMany(targetEntity: ForumComment::class, mappedBy: 'forum')]
+    private Collection $forumComment;
+
+    #[ORM\ManyToOne(inversedBy: 'forums')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->forumComment = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,6 +69,48 @@ class Forum
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ForumComment>
+     */
+    public function getForumComment(): Collection
+    {
+        return $this->forumComment;
+    }
+
+    public function addForumComment(ForumComment $forumComment): static
+    {
+        if (!$this->forumComment->contains($forumComment)) {
+            $this->forumComment->add($forumComment);
+            $forumComment->setForum($this);
+        }
+
+        return $this;
+    }
+
+    public function removeForumComment(ForumComment $forumComment): static
+    {
+        if ($this->forumComment->removeElement($forumComment)) {
+            // set the owning side to null (unless already changed)
+            if ($forumComment->getForum() === $this) {
+                $forumComment->setForum(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

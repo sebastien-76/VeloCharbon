@@ -24,6 +24,10 @@ class ForumComment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'forumComment')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Forum $forum = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -37,6 +41,18 @@ class ForumComment
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getForum(): ?Forum
+    {
+        return $this->forum;
+    }
+
+    public function setForum(?Forum $forum): static
+    {
+        $this->forum = $forum;
 
         return $this;
     }
