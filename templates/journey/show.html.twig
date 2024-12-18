@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Journey{% endblock %}
+
+{% block body %}
+    <h1>Journey</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ journey.id }}</td>
+            </tr>
+            <tr>
+                <th>Stage</th>
+                <td>{{ journey.stage }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ journey.description }}</td>
+            </tr>
+            <tr>
+                <th>GpxName</th>
+                <td>{{ journey.gpxName }}</td>
+            </tr>
+            <tr>
+                <th>DeletedAt</th>
+                <td>{{ journey.deletedAt ? journey.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ journey.createdAt ? journey.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ journey.updatedAt ? journey.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_journey_index') }}">back to list</a>
+
+    <a href="{{ path('app_journey_edit', {'id': journey.id}) }}">edit</a>
+
+    {{ include('journey/_delete_form.html.twig') }}
+{% endblock %}
