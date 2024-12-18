@@ -16,22 +16,21 @@ class BlogCommentType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('deletedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
             ->add('blog', EntityType::class, [
                 'class' => Blog::class,
-                'choice_label' => 'id',
+                'choice_label' => function(Blog $blog){
+                    return "{$blog->getTitle()}";
+                },
+                'multiple' => false, 
+                'expanded' => false
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => function(User $user){
+                    return "{$user->getUserIdentifier()}";
+                },
+                'multiple' => false, 
+                'expanded' => false
             ])
         ;
     }
