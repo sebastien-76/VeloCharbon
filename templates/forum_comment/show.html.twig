@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ForumComment{% endblock %}
+
+{% block body %}
+    <h1>ForumComment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ forum_comment.id }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ forum_comment.description }}</td>
+            </tr>
+            <tr>
+                <th>DeletedAt</th>
+                <td>{{ forum_comment.deletedAt ? forum_comment.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ forum_comment.createdAt ? forum_comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ forum_comment.updatedAt ? forum_comment.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_forum_comment_index') }}">back to list</a>
+
+    <a href="{{ path('app_forum_comment_edit', {'id': forum_comment.id}) }}">edit</a>
+
+    {{ include('forum_comment/_delete_form.html.twig') }}
+{% endblock %}

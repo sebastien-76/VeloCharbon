@@ -6,12 +6,11 @@ use App\Entity\Journey;
 use App\Form\JourneyType;
 use App\Repository\JourneyRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
-
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/journey')]
 final class JourneyController extends AbstractController

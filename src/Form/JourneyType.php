@@ -15,15 +15,6 @@ class JourneyType extends AbstractType
             ->add('stage')
             ->add('description')
             ->add('gpxName')
-            ->add('deletedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
         ;
     }
 

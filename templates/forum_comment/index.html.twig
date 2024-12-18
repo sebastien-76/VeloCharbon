@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ForumComment index{% endblock %}
+
+{% block body %}
+    <h1>ForumComment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>DeletedAt</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for forum_comment in forum_comments %}
+            <tr>
+                <td>{{ forum_comment.id }}</td>
+                <td>{{ forum_comment.description }}</td>
+                <td>{{ forum_comment.deletedAt ? forum_comment.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ forum_comment.createdAt ? forum_comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ forum_comment.updatedAt ? forum_comment.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_forum_comment_show', {'id': forum_comment.id}) }}">show</a>
+                    <a href="{{ path('app_forum_comment_edit', {'id': forum_comment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_forum_comment_new') }}">Create new</a>
+{% endblock %}
