@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}veloCharbon{% endblock %}
+{% block title %}Accueil - VeloCharbon{% endblock %}
 
 {% block body %}
-<style>
+    <div class="container">
+        <h1>Bienvenue sur VeloCharbon</h1>
 
-</style>
-
-<div class="example-wrapper">
-    <h1>Bienvenue sur veloCharbon</h1>
+        <h2>Derniers articles du blog</h2>
+       <div class="row d-flex flex-wrap">
+    {% for blog in latestBlogs %}
+        <div class="col-md-3 mb-4 d-flex">
+            <div class="card flex-fill">
+                {% if blog.imageName %}
+                    <img src="{{ vich_uploader_asset(blog, 'imageFile') }}" class="card-img-top" alt="{{ blog.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ blog.title }}</h5>
+                    <p class="card-text">{{ blog.content|striptags|slice(0, 100) }}...</p>
+                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-primary">Lire la suite</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 </div>
+
+    </div>
 {% endblock %}
