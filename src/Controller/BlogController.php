@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Blog;
 use App\Form\BlogType;
+use App\Repository\BlogCommentRepository;
 use App\Repository\BlogRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,12 +47,15 @@ final class BlogController extends AbstractController
     #[Route('/{id}', name: 'app_blog_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
     public function show(Blog $blog): Response
     {
+        $blogComments = $blog->getBlogComment();
+
         return $this->render('blog/show.html.twig', [
             'blog' => $blog,
+            'blogComments' => $blogComments
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_blog_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]    
+    #[Route('/{id}/edit', name: 'app_blog_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Request $request, Blog $blog, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(BlogType::class, $blog);
@@ -72,7 +76,7 @@ final class BlogController extends AbstractController
     #[Route('/{id}', name: 'app_blog_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
     public function delete(Request $request, Blog $blog, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$blog->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $blog->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($blog);
             $entityManager->flush();
         }
