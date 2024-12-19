@@ -1,5 +1,7 @@
  @import url('./colors.css');
 
+/* css de la nav bar */
+
 .menu {
     background-color: var(--gold);
 }
@@ -21,5 +23,23 @@
 .navbar-toggler:focus {
     box-shadow: none;
 
+}
+
+.btn-app {
+    background-color: var(--grey);
+    color: var(--white);
+    font-weight: bold;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    color: var(--dark-grey);
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+.border-card {
+    border: 2px solid var(--dark-grey);
 }
 
