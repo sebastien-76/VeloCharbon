@@ -1,47 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Blog index{% endblock %}
+{% block title %}Blog index
+{% endblock %}
 
 {% block body %}
-    <h1>Blog index</h1>
+	<h1 class="text-center">Les actualités</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>ImageName</th>
-                <th>ImageSize</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>DeletedAt</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for blog in blogs %}
-            <tr>
-                <td>{{ blog.id }}</td>
-                <td>{{ blog.imageName }}</td>
-                <td>{{ blog.imageSize }}</td>
-                <td>{{ blog.title }}</td>
-                <td>{{ blog.content }}</td>
-                <td>{{ blog.deletedAt ? blog.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
-                    <a href="{{ path('app_blog_edit', {'id': blog.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	{% for blog in blogs %}
+		<div class="card w-50 mx-auto my-3">
+			<div class="card-body">
+            <a href="{{ path('app_blog_show', {'id': blog.id}) }}"><h4 class="card-title text-center">{{ blog.title }}</h4></a>
+            </div>
+		</div>
+	{% endfor %}
 
-    <a href="{{ path('app_blog_new') }}">Create new</a>
+
+	<a class="btn btn-primary" href="{{ path('app_blog_new') }}">Create new</a>
 {% endblock %}

@@ -3,21 +3,21 @@
 namespace App\Form;
 
 use App\Entity\Blog;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class BlogType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('imageName')
-            ->add('imageSize')
             ->add('title')
             ->add('content')
+            ->add('imageFile', VichFileType::class, [
+                'required' => false,
+            ])
         ;
     }
 
