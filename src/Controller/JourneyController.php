@@ -18,11 +18,12 @@ final class JourneyController extends AbstractController
     #[Route(name: 'app_journey_index', methods: ['GET'])]
     public function index(JourneyRepository $journeyRepository): Response
     {
+        $journeys = $journeyRepository->findAll();
         return $this->render('journey/index.html.twig', [
-            'journeys' => $journeyRepository->findAll(),
+            'journeys' => $journeys,
         ]);
+    
     }
-
     #[Route('/new', name: 'app_journey_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -72,10 +73,12 @@ final class JourneyController extends AbstractController
     #[Route('/{id}', name: 'app_journey_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
     public function delete(Request $request, Journey $journey, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$journey->getId(), $request->getPayload()->getString('_token'))) {
+        // if ($this->isCsrfTokenValid('delete'.$journey->getId(), $request->getPayload()->getString('_token'))) {
+        //     $entityManager->remove($journey);
+        //     $entityManager->flush();
+        // }
             $entityManager->remove($journey);
             $entityManager->flush();
-        }
 
         return $this->redirectToRoute('app_journey_index', [], Response::HTTP_SEE_OTHER);
     }
