@@ -1,47 +1,32 @@
-
 {% block header %}
-	<nav class="bg-slate-300  fixed w-full z-10 top-0 start-0">
-		<div class="h-20 flex items-center justify-between px-4">
-			<div class="w-1/4">
-				<img src="{{ asset('../assets/images/logoVeloCharbon.png') }}" alt="logo veloCharbon">
-			</div>
-{# 			<div class="w-3/4 flex items-center justify-end lg:hidden pr-4">
-				<label for="checkmenu">
-					<svg class="w-10 h-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 17 14">
-						<path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-					</svg>
-				</label>
-				<input id="checkmenu" type="checkbox" class="peer/menu hidden menu peer">
-				<div class="absolute top-full left-full w-1/2 peer-checked/menu:left-0 transform delay-200 duration-500 md:text-center">
-					<ul class="font-medium flex flex-col p-4">
-						<li class="py-1">
-							<a class="block py-1 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('app_home')}}">Accueil</a>
-						</li>
-						<li class="py-1">
-							<a class="block py-1 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('app_rappel_new')}}">Ajouter un rappel</a>
-						</li>
-						<li class="py-1">
-							<a class="block py-2 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('app_rappel')}}">Les rappels</a>
-						</li>
-						<li class="py-1">
-							<a class="block py-2 px-3 text-gray-900 bg-slate-300 opacity-75 rounded text-sm" href="{{ path('categorie.all')}}">Les catégories</a>
-						</li>
-					</ul>
+	<div class="container my-2">
+		<div class="row">
+			<div class="col">
+				<div class="container-fluid">
+					<nav class="navbar navbar-expand-lg menu">
+						<div class="container-fluid">
+							<a class="navbar-brand" href="{{ path('app_home') }}"><img class="w-50" src="{{ asset('../assets/images/logoVeloCharbon.png') }}" alt="logo veloCharbon"></a>
+							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="navbar-toggler-icon"></span>
+							</button>
+							<div class="collapse navbar-collapse" id="navbarSupportedContent">
+								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+									<li class="nav-item">
+										<a class="nav-link active nav-a" href="{{path('app_home')}}">Accueil</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active nav-a" href="{{ path('app_blog_index')}}">Les actualités</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active nav-a" href="{{ path('app_forum_index')}}">Forum</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</nav>
 				</div>
-			</div> #}
-			<div class="w-3/4 lg:flex items-center hidden">
-				<ul class="flex justify-around items-center pr-10 gap-x-5 text-xl w-full">
-					<li>
-						<a href="{{path('app_home')}}">Accueil</a>
-					</li>
-					<li>
-						<a href="{{ path('app_blog_index')}}">Les actualités</a>
-					</li>
-					<li>
-						<a href="{{ path('app_forum_index')}}">Forum</a>
-					</li>
-				</ul>
 			</div>
 		</div>
-	</nav>
-{% endblock %}
+	</div>
+
+</div>{% endblock %}
