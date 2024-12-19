@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Blog;
 use App\Entity\User;
 use App\Entity\Forum;
+use App\Entity\Journey;
 use App\Entity\Category;
 use App\Entity\BlogComment;
 use App\Entity\ForumComment;
@@ -41,7 +42,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $this->loadForumComments();
         $this->loadBlogs();
         $this->loadBlogComments();
-
+        $this->loadJourneys();
     }
 
     public function loadUsers(): void
@@ -63,7 +64,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
     {
         for ($i = 0; $i < 10; ++$i) {
             $category = new Category();
-            $category->setTitle($this->faker->name());
+            $category->setTitle($this->faker->word());
             $this->manager->persist($category);
         }
         $this->manager->flush();
@@ -75,9 +76,9 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $userRepository = $this->manager->getRepository(User::class);
 
         $categories = $categoryRepository->findAll();
-        $users= $userRepository->findAll();
+        $users = $userRepository->findAll();
 
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 15; ++$i) {
             $forum = new Forum();
             $forum->setTitle($this->faker->word());
             $category = $this->faker->randomElement($categories);
@@ -98,7 +99,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $forums = $forumRepository->findAll();
         $users = $userRepository->findAll();
 
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 25; ++$i) {
             $forumComment = new ForumComment();
             $forumComment->setDescription($this->faker->sentence());
             $forumComment->setForum($this->faker->randomElement($forums));
@@ -113,9 +114,9 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
     {
         $userRepository = $this->manager->getRepository(User::class);
 
-        $users= $userRepository->findAll();
+        $users = $userRepository->findAll();
 
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 15; ++$i) {
             $blog = new Blog();
             $blog->setTitle($this->faker->word());
             $blog->setContent($this->faker->sentence());
@@ -135,7 +136,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $blogs = $blogRepository->findAll();
         $users = $userRepository->findAll();
 
-        for ($i = 0; $i < 10; ++$i) {
+        for ($i = 0; $i < 25; ++$i) {
             $blogComment = new BlogComment();
             $blogComment->setDescription($this->faker->sentence());
             $blogComment->setBlog($this->faker->randomElement($blogs));
@@ -146,4 +147,15 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $this->manager->flush();
     }
 
+    public function loadJourneys(): void
+    {
+        for ($i = 0; $i < 10; ++$i) {
+            $journey = new Journey();
+            $journey->setStage($this->faker->word());
+            $journey->setDescription($this->faker->sentence());
+            $this->manager->persist($journey);
+        }
+
+        $this->manager->flush();
+    }
 }
