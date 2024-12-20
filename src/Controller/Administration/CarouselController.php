@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Carousel;
 use App\Form\CarouselType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/carousel')]
+#[Route('/admin/carousel')]
 final class CarouselController extends AbstractController
 {
     #[Route(name: 'app_carousel_index', methods: ['GET'])]

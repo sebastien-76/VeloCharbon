@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Forum;
 use App\Form\ForumType;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 
-#[Route('/forum')]
+#[Route('/admin/forum')]
 final class ForumController extends AbstractController
 {
     /*#[Route(name: 'app_forum_index', methods: ['GET'])]

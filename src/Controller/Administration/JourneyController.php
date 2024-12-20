@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Journey;
 use App\Form\JourneyType;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/journey')]
+#[Route('/admin/journey')]
 final class JourneyController extends AbstractController
 {
     #[Route(name: 'app_journey_index', methods: ['GET'])]
