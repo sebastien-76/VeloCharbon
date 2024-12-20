@@ -43,3 +43,7 @@ p {
     border: 2px solid var(--dark-grey);
 }
 
+.carousel-image {
+    height: 300px; /* Ajustez cette valeur selon vos besoins */
+    object-fit: cover; /* Cette propriété permet de garder les proportions de l'image */
+}
