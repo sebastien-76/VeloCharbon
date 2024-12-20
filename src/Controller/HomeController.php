@@ -8,7 +8,6 @@ use App\Repository\JourneyRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\BlogRepository;
 use App\Repository\CarouselRepository;
 
 class HomeController extends AbstractController
