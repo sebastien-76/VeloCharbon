@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\BlogComment;
 use App\Form\BlogCommentType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/blog/comment')]
+#[Route('/admin/blog/comment')]
 final class BlogCommentController extends AbstractController
 {
     #[Route(name: 'app_blog_comment_index', methods: ['GET'])]

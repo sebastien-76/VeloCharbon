@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Forum;
 use App\Form\ForumType;
@@ -13,18 +13,18 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
 
-#[Route('/forum')]
+#[Route('/admin/forum')]
 final class ForumController extends AbstractController
 {
-    #[Route(name: 'app_forum_index', methods: ['GET'])]
+    /*#[Route(name: 'app_forum_index', methods: ['GET'])]
     public function index(ForumRepository $forumRepository): Response
     {
         return $this->render('forum/index.html.twig', [
             'forums' => $forumRepository->findAll(),
         ]);
-    }
+    }*/
 
-    #[Route( name: 'app_forum_new', methods: ['GET', 'POST'])]
+    #[Route( '/new', name: 'app_forum_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $forum = new Forum();
