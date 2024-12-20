@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\BlogRepository;
+use App\Repository\ForumRepository;
+use App\Repository\JourneyRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\BlogRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
@@ -16,6 +18,30 @@ class HomeController extends AbstractController
 
         return $this->render('home/index.html.twig', [
             'latestBlogs' => $latestBlogs,
+        ]);
+    }
+
+    #[Route('/blog', name: 'app_blog_index', methods: ['GET'])]
+    public function indexBlog(BlogRepository $blogRepository): Response
+    {
+        return $this->render('blog/index.html.twig', [
+            'blogs' => $blogRepository->findAll(),
+        ]);
+    }    
+   
+    #[Route('/journey', name: 'app_journey_index', methods: ['GET'])]
+    public function indexJourney(JourneyRepository $journeyRepository): Response
+    {
+        return $this->render('journey/index.html.twig', [
+            'journeys' => $journeyRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
+    public function indexForum(ForumRepository $forumRepository): Response
+    {
+        return $this->render('forum/index.html.twig', [
+            'forums' => $forumRepository->findAll(),
         ]);
     }
 }
