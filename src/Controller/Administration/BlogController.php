@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Blog;
 use App\Form\BlogType;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/blog')]
+#[Route('/admin/blog')]
 final class BlogController extends AbstractController
 {
     #[Route(name: 'app_blog_index', methods: ['GET'])]
