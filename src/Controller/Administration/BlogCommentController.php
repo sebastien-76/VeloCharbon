@@ -53,6 +53,7 @@ final class BlogCommentController extends AbstractController
     #[Route('/{id}/edit', name: 'app_blog_comment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
+        $blogId = $blogComment->getBlog()->getId();
         $form = $this->createForm(BlogCommentType::class, $blogComment);
         $form->handleRequest($request);
 
@@ -65,17 +66,19 @@ final class BlogCommentController extends AbstractController
         return $this->render('blog_comment/edit.html.twig', [
             'blog_comment' => $blogComment,
             'form' => $form,
+            'blogId' => $blogId
         ]);
     }
 
     #[Route('/{id}', name: 'app_blog_comment_delete', methods: ['POST'])]
     public function delete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
+        $blogId = $blogComment->getBlog()->getId();
         if ($this->isCsrfTokenValid('delete'.$blogComment->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($blogComment);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_blog_comment_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_blog_show', ['id' => $blogId], Response::HTTP_SEE_OTHER);
     }
 }

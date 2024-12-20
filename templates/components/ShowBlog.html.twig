@@ -1,0 +1,13 @@
+<div {{ attributes }}>
+	<a class="mx-2" data-bs-toggle="modal" data-bs-target="#new-category-modal"><img src="{{ asset('../assets/images/icones/trash.svg') }}" alt="edition"></a>
+</div>
+
+{% component BootstrapModal with {id: 'new-category-modal'} %}
+{% block modal_header %}
+	<h5>Etes vous sur de vouloir supprimer ce post?</h5>
+	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{% endblock %}
+{% block modal_body %}
+	<twig:DeleteBlogComponent :blogComment="blogComment"/>
+{% endblock %}
+{% endcomponent %}
