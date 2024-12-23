@@ -15,11 +15,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin/journey')]
 final class JourneyController extends AbstractController
 {
-    #[Route(name: 'app_journey_index', methods: ['GET'])]
+    #[Route(name: 'app_home_journey_index', methods: ['GET'])]
     public function index(JourneyRepository $journeyRepository): Response
     {
         $journeys = $journeyRepository->findAll();
-        return $this->render('journey/index.html.twig', [
+        return $this->render('/Administration/journey/index.html.twig', [
             'journeys' => $journeys,
         ]);
     
@@ -35,10 +35,10 @@ final class JourneyController extends AbstractController
             $entityManager->persist($journey);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_journey_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('/Administration/app_journey_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('journey/new.html.twig', [
+        return $this->render('/Administration/journey/new.html.twig', [
             'journey' => $journey,
             'form' => $form,
         ]);
@@ -47,7 +47,7 @@ final class JourneyController extends AbstractController
     #[Route('/{id}', name: 'app_journey_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
     public function show(Journey $journey): Response
     {
-        return $this->render('journey/show.html.twig', [
+        return $this->render('/Administration/journey/show.html.twig', [
             'journey' => $journey,
         ]);
     }
@@ -64,7 +64,7 @@ final class JourneyController extends AbstractController
             return $this->redirectToRoute('app_journey_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('journey/edit.html.twig', [
+        return $this->render('/Administration/journey/edit.html.twig', [
             'journey' => $journey,
             'form' => $form,
         ]);
@@ -80,6 +80,6 @@ final class JourneyController extends AbstractController
             $entityManager->remove($journey);
             $entityManager->flush();
 
-        return $this->redirectToRoute('app_journey_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('/Administration/app_journey_index', [], Response::HTTP_SEE_OTHER);
     }
 }

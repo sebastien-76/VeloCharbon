@@ -35,7 +35,7 @@ class HomeController extends AbstractController
     #[Route('/journey', name: 'app_journey_index', methods: ['GET'])]
     public function indexJourney(JourneyRepository $journeyRepository): Response
     {
-        return $this->render('journey/index.html.twig', [
+        return $this->render('/Administration/journey/index.html.twig', [
             'journeys' => $journeyRepository->findAll(),
         ]);
     }
