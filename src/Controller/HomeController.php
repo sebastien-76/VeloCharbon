@@ -32,7 +32,7 @@ class HomeController extends AbstractController
         ]);
     }    
    
-    #[Route('/journey', name: 'app_journey_index', methods: ['GET'])]
+    #[Route('/journey', name: 'app_home_journey_index', methods: ['GET'])]
     public function indexJourney(JourneyRepository $journeyRepository): Response
     {
         return $this->render('/Administration/journey/index.html.twig', [

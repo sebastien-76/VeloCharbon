@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/admin/journey')]
 final class JourneyController extends AbstractController
 {
-    #[Route(name: 'app_home_journey_index', methods: ['GET'])]
+    #[Route(name: 'app_journey_index', methods: ['GET'])]
     public function index(JourneyRepository $journeyRepository): Response
     {
         $journeys = $journeyRepository->findAll();
