@@ -32,10 +32,10 @@ class HomeController extends AbstractController
         ]);
     }    
    
-    #[Route('/journey', name: 'app_journey_index', methods: ['GET'])]
+    #[Route('/journey', name: 'app_home_journey_index', methods: ['GET'])]
     public function indexJourney(JourneyRepository $journeyRepository): Response
     {
-        return $this->render('journey/index.html.twig', [
+        return $this->render('/Administration/journey/index.html.twig', [
             'journeys' => $journeyRepository->findAll(),
         ]);
     }
@@ -43,7 +43,7 @@ class HomeController extends AbstractController
     #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
     public function indexForum(ForumRepository $forumRepository): Response
     {
-        return $this->render('forum/index.html.twig', [
+        return $this->render('/Administration/forum/index.html.twig', [
             'forums' => $forumRepository->findAll(),
         ]);
     }

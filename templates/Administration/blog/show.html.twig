@@ -24,6 +24,9 @@
 					</div>
 				</div>
 			{% endfor %}
+			<button class="btn btn-app my-5">
+                <a href="{{ path('app_blog_comment_add', {'blogId': blog.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
+            </button>
 			<div class=" d-flex flex-row justify-content-end align-items-center">
 				<a class="mx-2" href="{{ path('app_blog_edit', {'id':blog.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
 				{{ include('/Administration/blog/_delete_form.html.twig') }}
