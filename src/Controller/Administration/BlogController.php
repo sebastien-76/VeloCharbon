@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Blog;
 use App\Form\BlogType;
@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-#[Route('/blog')]
+#[Route('/admin/blog')]
 final class BlogController extends AbstractController
 {
     #[Route(name: 'app_blog_index', methods: ['GET'])]
     public function index(BlogRepository $blogRepository): Response
     {
-        return $this->render('blog/index.html.twig', [
+        return $this->render('/Administration/blog/index.html.twig', [
             'blogs' => $blogRepository->findAll(),
         ]);
     }
@@ -38,7 +38,7 @@ final class BlogController extends AbstractController
             return $this->redirectToRoute('app_blog_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('blog/new.html.twig', [
+        return $this->render('/Administration/blog/new.html.twig', [
             'blog' => $blog,
             'form' => $form,
         ]);
@@ -49,7 +49,7 @@ final class BlogController extends AbstractController
     {
         $blogComments = $blog->getBlogComment();
 
-        return $this->render('blog/show.html.twig', [
+        return $this->render('/Administration/blog/show.html.twig', [
             'blog' => $blog,
             'blogComments' => $blogComments
         ]);
@@ -67,7 +67,7 @@ final class BlogController extends AbstractController
             return $this->redirectToRoute('app_blog_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('blog/edit.html.twig', [
+        return $this->render('/Administration/blog/edit.html.twig', [
             'blog' => $blog,
             'form' => $form,
         ]);

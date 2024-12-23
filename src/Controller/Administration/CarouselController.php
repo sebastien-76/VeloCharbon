@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\Carousel;
 use App\Form\CarouselType;
@@ -11,13 +11,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/carousel')]
+#[Route('/admin/carousel')]
 final class CarouselController extends AbstractController
 {
     #[Route(name: 'app_carousel_index', methods: ['GET'])]
     public function index(CarouselRepository $carouselRepository): Response
     {
-        return $this->render('carousel/index.html.twig', [
+        return $this->render('Administration/carousel/index.html.twig', [
             'carousels' => $carouselRepository->findAll(),
         ]);
     }
@@ -36,7 +36,7 @@ final class CarouselController extends AbstractController
             return $this->redirectToRoute('app_carousel_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('carousel/new.html.twig', [
+        return $this->render('Administration/carousel/new.html.twig', [
             'carousel' => $carousel,
             'form' => $form,
         ]);
@@ -45,7 +45,7 @@ final class CarouselController extends AbstractController
     #[Route('/{id}', name: 'app_carousel_show', methods: ['GET'])]
     public function show(Carousel $carousel): Response
     {
-        return $this->render('carousel/show.html.twig', [
+        return $this->render('Administration/carousel/show.html.twig', [
             'carousel' => $carousel,
         ]);
     }
@@ -62,7 +62,7 @@ final class CarouselController extends AbstractController
             return $this->redirectToRoute('app_carousel_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('carousel/edit.html.twig', [
+        return $this->render('Administration/carousel/edit.html.twig', [
             'carousel' => $carousel,
             'form' => $form,
         ]);

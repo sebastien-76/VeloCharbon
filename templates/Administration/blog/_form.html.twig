@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+<h5 class="my-3">Description du sujet</h5>
+{{ form_widget(form.content)}}
+
+<h5 class="my-3">Image</h5>
+<img class="w-25 mx-auto" src="{{ vich_uploader_asset(blog,blog.imageFile) }}" alt="{{ blog.imageName }}">
+
+<h5 class="my-3">Modifier l'image</h5>
+{{ form_widget(form.imageFile)}}
+
+<button class="btn btn-app my-5">{{ button_label|default('Save') }}</button>
+<button class="btn btn-app my-5">
+	<a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-app">Retour à l'actualité</a>
+</button>
+
+{{ form_end(form, {render_rest: false}) }}

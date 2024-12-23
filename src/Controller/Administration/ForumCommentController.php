@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Administration;
 
 use App\Entity\ForumComment;
 use App\Form\ForumCommentType;
@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/forum/comment')]
+#[Route('/admin/forum/comment')]
 final class ForumCommentController extends AbstractController
 {
     #[Route(name: 'app_forum_comment_index', methods: ['GET'])]

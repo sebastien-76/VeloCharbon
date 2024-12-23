@@ -1,0 +1,6 @@
+<div {{ attributes }} class="mt-3">
+<form method="post" action="{{ path('app_blog_comment_delete', {'id': blogComment.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ blogComment.id) }}">
+    <button class="btn btn-app" type="submit">Supprimer</button>
+</form>
+</div>

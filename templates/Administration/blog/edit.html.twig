@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification d'une actualité
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-5">Modification
+		{{ blog.title }}</h1>
+	<div class="card w-75 mx-auto text-center border-card">
+		{{ include('blog/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+	</div>
+{% endblock %}
