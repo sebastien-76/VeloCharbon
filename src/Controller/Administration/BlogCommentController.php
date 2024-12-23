@@ -5,6 +5,8 @@ namespace App\Controller\Administration;
 use App\Entity\BlogComment;
 use App\Form\BlogCommentType;
 use App\Repository\BlogCommentRepository;
+use App\Repository\BlogRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -66,7 +68,7 @@ final class BlogCommentController extends AbstractController
         return $this->render('blog_comment/edit.html.twig', [
             'blog_comment' => $blogComment,
             'form' => $form,
-            'blogId' => $blogId
+            'blogId' => $blogId,
         ]);
     }
 
@@ -74,11 +76,38 @@ final class BlogCommentController extends AbstractController
     public function delete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blogId = $blogComment->getBlog()->getId();
-        if ($this->isCsrfTokenValid('delete'.$blogComment->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $blogComment->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($blogComment);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_blog_show', ['id' => $blogId], Response::HTTP_SEE_OTHER);
+    }
+
+    #[route('/add/{blogId}', name: 'app_blog_comment_add', methods: ['GET', 'POST'])]
+    public function add(Request $request, EntityManagerInterface $entityManager, int $blogId, BlogRepository $blogRepository, UserRepository $userRepository): Response
+    {
+        $blog = $blogRepository->find($blogId);
+        $blogComment = new BlogComment();
+        $form = $this->createForm(BlogCommentType::class, $blogComment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $blogComment->setBlog($blog);
+            $entityManager->persist($blogComment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_blog_show', [
+                'id' => $blogId,
+                'blogComment' => $blogComment,
+                'form' => $form,
+            ], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('blog_comment/new.html.twig', [
+            'blogId' => $blogId,
+            'blogComment' => $blogComment,
+            'form' => $form,
+        ]);
     }
 }
