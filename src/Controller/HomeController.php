@@ -24,10 +24,10 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/blog', name: 'app_blog_index', methods: ['GET'])]
+    #[Route('/blog', name: 'app_home_blog_index', methods: ['GET'])]
     public function indexBlog(BlogRepository $blogRepository): Response
     {
-        return $this->render('blog/index.html.twig', [
+        return $this->render('/Administration/blog/index.html.twig', [
             'blogs' => $blogRepository->findAll(),
         ]);
     }    
