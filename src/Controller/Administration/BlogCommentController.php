@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 #[Route('/admin/blog/comment')]
 final class BlogCommentController extends AbstractController
@@ -19,7 +20,7 @@ final class BlogCommentController extends AbstractController
     #[Route(name: 'app_blog_comment_index', methods: ['GET'])]
     public function index(BlogCommentRepository $blogCommentRepository): Response
     {
-        return $this->render('blog_comment/index.html.twig', [
+        return $this->render('/Administration/blog_comment/index.html.twig', [
             'blog_comments' => $blogCommentRepository->findAll(),
         ]);
     }
@@ -38,7 +39,7 @@ final class BlogCommentController extends AbstractController
             return $this->redirectToRoute('app_blog_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('blog_comment/new.html.twig', [
+        return $this->render('/Administration/blog_comment/new.html.twig', [
             'blog_comment' => $blogComment,
             'form' => $form,
         ]);
@@ -47,7 +48,7 @@ final class BlogCommentController extends AbstractController
     #[Route('/{id}', name: 'app_blog_comment_show', methods: ['GET'])]
     public function show(BlogComment $blogComment): Response
     {
-        return $this->render('blog_comment/show.html.twig', [
+        return $this->render('/Administration/blog_comment/show.html.twig', [
             'blog_comment' => $blogComment,
         ]);
     }
@@ -65,7 +66,7 @@ final class BlogCommentController extends AbstractController
             return $this->redirectToRoute('app_blog_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('blog_comment/edit.html.twig', [
+        return $this->render('/Administration/blog_comment/edit.html.twig', [
             'blog_comment' => $blogComment,
             'form' => $form,
             'blogId' => $blogId,
@@ -85,14 +86,16 @@ final class BlogCommentController extends AbstractController
     }
 
     #[route('/add/{blogId}', name: 'app_blog_comment_add', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager, int $blogId, BlogRepository $blogRepository, UserRepository $userRepository): Response
+    public function add(Request $request, EntityManagerInterface $entityManager, int $blogId, BlogRepository $blogRepository, TokenInterface $token): Response
     {
         $blog = $blogRepository->find($blogId);
+        $user = $token->getUser();
         $blogComment = new BlogComment();
         $form = $this->createForm(BlogCommentType::class, $blogComment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $blogComment->setUser($user);
             $blogComment->setBlog($blog);
             $entityManager->persist($blogComment);
             $entityManager->flush();
@@ -104,7 +107,7 @@ final class BlogCommentController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('blog_comment/new.html.twig', [
+        return $this->render('/Administration/blog_comment/new.html.twig', [
             'blogId' => $blogId,
             'blogComment' => $blogComment,
             'form' => $form,

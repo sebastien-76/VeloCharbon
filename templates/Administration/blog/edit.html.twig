@@ -7,6 +7,9 @@
 	<h1 class="text-center my-5">Modification
 		{{ blog.title }}</h1>
 	<div class="card w-75 mx-auto text-center border-card">
-		{{ include('blog/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+		{{ include('/Administration/blog/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 	</div>
+	<button class="btn btn-app my-5">
+	<a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-app">Retour à l'actualité</a>
+</button>
 {% endblock %}
