@@ -6,12 +6,14 @@ use App\Entity\Blog;
 use App\Form\BlogType;
 use App\Repository\BlogCommentRepository;
 use App\Repository\BlogRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 #[Route('/admin/blog')]
 final class BlogController extends AbstractController
@@ -25,13 +27,16 @@ final class BlogController extends AbstractController
     }
 
     #[Route('/new', name: 'app_blog_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, TokenInterface $token): Response
     {
         $blog = new Blog();
+        $userId = $token->getUser()->getId();
+        $user = $userRepository->find($userId);
         $form = $this->createForm(BlogType::class, $blog);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $blog->setUser($user);
             $entityManager->persist($blog);
             $entityManager->flush();
 
