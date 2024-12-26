@@ -2,13 +2,15 @@
 
 namespace App\Controller;
 
+use Symfony\UX\Map\Map;
+use Symfony\UX\Map\Point;
 use App\Repository\BlogRepository;
 use App\Repository\ForumRepository;
 use App\Repository\JourneyRepository;
+use App\Repository\CarouselRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Repository\CarouselRepository;
 
 class HomeController extends AbstractController
 {
@@ -18,9 +20,15 @@ class HomeController extends AbstractController
         $latestBlogs = $blogRepository->findBy([], ['createdAt' => 'DESC'], 8);
         $carouselImages = $carouselRepository->findAll();
 
+        $map = (new Map())
+            ->center(new Point(46.903354, 1.888334))
+            ->zoom(6)
+            ->fitBoundsToMarkers();
+
         return $this->render('home/index.html.twig', [
             'latestBlogs' => $latestBlogs,
             'carouselImages' => $carouselImages,
+            'map' => $map
         ]);
     }
 
@@ -30,8 +38,8 @@ class HomeController extends AbstractController
         return $this->render('/Administration/blog/index.html.twig', [
             'blogs' => $blogRepository->findAll(),
         ]);
-    }    
-   
+    }
+
     #[Route('/journey', name: 'app_home_journey_index', methods: ['GET'])]
     public function indexJourney(JourneyRepository $journeyRepository): Response
     {
@@ -48,4 +56,3 @@ class HomeController extends AbstractController
         ]);
     }
 }
-

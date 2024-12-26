@@ -1,4 +1,18 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_widget(form._token) }}
+<h5 class="my-3">Etape</h5>
+{{ form_widget(form.stage)}}
+
+<h5 class="my-3">Description</h5>
+{{ form_widget(form.description)}}
+
+{# <h5 class="my-3">Fichier GPX</h5>
+<img class="w-25 mx-auto" src="{{ vich_uploader_asset(journey,journey.gpxFile) }}" alt="{{ journey.gpxName }}">
+ #}
+<h5 class="my-3">Modifier le gpx</h5>
+{{ form_widget(form.gpxFile)}}  
+
+<button class="btn btn-app my-5">{{ button_label|default('Save') }}</button>
+
+
+{{ form_end(form, {render_rest: false}) }}
