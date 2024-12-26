@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\UX\Map\Map;
 use Symfony\UX\Map\Point;
+use Symfony\UX\Map\Polyline;
 use App\Repository\BlogRepository;
 use App\Repository\ForumRepository;
 use App\Repository\JourneyRepository;
@@ -20,10 +21,21 @@ class HomeController extends AbstractController
         $latestBlogs = $blogRepository->findBy([], ['createdAt' => 'DESC'], 8);
         $carouselImages = $carouselRepository->findAll();
 
+        $gpx = simplexml_load_file("../public/gpxFiles/EuroVelo_5_Via_Romea.gpx");
+        $trseg = $gpx->trk->trkseg;
         $map = (new Map())
-            ->center(new Point(46.903354, 1.888334))
-            ->zoom(6)
-            ->fitBoundsToMarkers();
+            ->center(new Point(50.566669, 2.48333))
+            ->zoom(9);
+        foreach ($trseg->trkpt as $trkpt) {
+            $lat = (float) $trkpt['lat'];
+            $lon = (float) $trkpt['lon'];
+            $points[] = new Point($lat, $lon);
+        }
+        $map->addPolyLine(
+            new Polyline(
+                $points
+            )
+        );
 
         return $this->render('home/index.html.twig', [
             'latestBlogs' => $latestBlogs,
