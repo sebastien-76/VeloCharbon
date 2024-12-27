@@ -15,21 +15,23 @@
 										<a class="nav-link active nav-a mx-2" href="{{path('app_home')}}">Accueil</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_blog_index')}}">Les actualités</a>
+										<a class="nav-link active nav-a mx-2" href="{{ path('app_journey_index')}}">Les Trajets</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_journey_index')}}">Les Trajets</a>
+										<a class="nav-link active nav-a mx-2" href="{{ path('app_blog_index')}}">Les actualités</a>
 									</li>
 									<li class="nav-item">
 										<a class="nav-link active nav-a mx-2" href="{{ path('app_forum_index')}}">Forum</a>
 									</li>
+									{% if is_granted('ROLE_ADMIN') %}
 									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_carousel_index')}}">Carousel</a>
+										<a class="nav-link active nav-a mx-2" href="{{ path('app_administration')}}">Admin</a>
 									</li>
+									{% endif %}
 								</ul>
 							</div>
 							{% if app.user %}
-								<p class="bienvenue my-auto">Bonjour
+								<p class="bienvenue my-auto w-25">Bonjour
 									{{ app.user.userName }}</p>
 {# 								<a href="{{ path('app_profile_show') }}">Mon compte </a>
  #}								<a class="nav-link active nav-a" href="{{ path('app_logout') }}"> Déconnexion</a>
