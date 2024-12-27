@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+<h1 class="text-center my-5">Bienvenue sur la page d'administration de VéloCharbon</h1>
+<p class="text-center my-3">L'accès aux différentes sections se fait par les boutons ci-dessous</p>
+<div class="container">
+    <div class="row my-2">
+        <div class="col">
+            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_journey_index')}}">Les Trajets</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_blog_index')}}">Les Blogs</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_forum_index')}}">Le Forum</a>
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col">
+            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_carousel_index')}}">Le Carousel</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_category_index')}}">Les Categories</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_user_index')}}">Les utilisateurs</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
