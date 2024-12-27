@@ -3,11 +3,13 @@
 {% block title %}Les utilisateurs{% endblock %}
 
 {% block body %}
-    <h1 class="text-center my-2">Liste des utilisateurs</h1>
-    	<div class="w-100 d-flex justify-content-center">
-            <a class="btn btn-app my-5" href="{{ path('app_user_new') }}">Ajouter un Utilisateur</a>
-        </div>
-    </button>
+    <h1 class="text-center my-5">Liste des utilisateurs</h1>
+    <div class="w-100 d-flex justify-content-center">
+        <a class="btn btn-app my-5" href="{{ path('app_user_new') }}">Ajouter un Utilisateur</a>
+    </div>
+	<div class="w-100 d-flex justify-content-end">
+		<a class="btn btn-app my-2 me-2" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
+	</div>
 	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
         {% for user in users %}
 			<div class="col-md-3 mb-4 d-flex">
