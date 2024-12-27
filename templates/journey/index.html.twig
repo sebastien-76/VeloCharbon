@@ -1,16 +1,11 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Journey index
+{% block title %}Index des trajets
 {% endblock %}
 
 {% block body %}
 	<h1 class="text-center my-5">Tous les trajets</h1>
-	<div class="w-100 d-flex justify-content-center">
-		<a class="btn btn-app my-3" href="{{path('app_admin_journey_new')}}">Ajouter un trajet</a>
-	</div>
-	<div class="w-100 d-flex justify-content-end">
-		<a class="btn btn-app my-2 me-2" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
-	</div>
 	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
 		{% for journey in journeys %}
 			<div class="col-md-3 mb-4 d-flex">
@@ -18,7 +13,7 @@
 					<div class="card-body">
 						<h5 class="card-title">{{ journey.stage}}</h5>
 						<p class="card-text">{{ journey.description|striptags|slice(0, 100) }}...</p>
-						<a href="{{ path('app_admin_journey_show', {'id': journey.id}) }}" class="btn btn-app">Lire la suite</a>
+						<a href="{{ path('app_journey_show', {'id': journey.id}) }}" class="btn btn-app">Lire la suite</a>
 					</div>
 				</div>
 			</div>
