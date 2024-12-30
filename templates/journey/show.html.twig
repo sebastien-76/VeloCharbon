@@ -7,15 +7,12 @@
 	<h1 class="text-center my-5">{{ journey.stage }}</h1>
 
 	<div class="card w-75 mx-auto text-center border-card">
+
 		<div class="card-body">
 			<p class="card-text my-5">
 				{{ journey.description}}
 			</p>
 			{% include "Administration/map/_map.html.twig" %}
-			<div class="d-flex flex-row justify-content-end align-items-center">
-				<a class="mx-2 " href="{{ path('app_admin_journey_edit', {'id':journey.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-				{{ include('/Administration/journey/_delete_form.html.twig') }}
-			</div>
 		</div>
 	</div>
 

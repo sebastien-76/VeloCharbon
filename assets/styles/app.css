@@ -1,5 +1,24 @@
  @import url('./colors.css');
 
+ h1, h2, h3, h4, h5, h6, p {
+    color: var(--dark-grey);
+    font-weight: bold;
+}
+
+p {
+    font-size: 1.2rem;
+    font-weight:300;
+}
+
+a {
+    text-decoration: none;
+    color: var(--white);
+}
+
+body {
+    background-color: var(--light-grey);
+}
+
 /* css de la nav bar */
 
 .menu {
@@ -9,7 +28,7 @@
 .nav-a {
     color: var(--white)!important;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 
 .navbar-toggler-icon {
@@ -22,7 +41,17 @@
 
 .navbar-toggler:focus {
     box-shadow: none;
+}
 
+.logo {
+    width: 10%;
+}
+
+.bienvenue {
+    width: 20%;
+    color: var(--white);
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .btn-app {
@@ -31,12 +60,8 @@
     font-weight: bold;
 }
 
-h1, h2, h3, h4, h5, h6, p {
-    color: var(--dark-grey);
-}
-
-p {
-    font-size: 1.2rem;
+.btn-app:hover {
+    background-color: var(--beige);
 }
 
 .border-card {

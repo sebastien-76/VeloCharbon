@@ -150,10 +150,40 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
 
     public function loadJourneys(): void
     {
-        for ($i = 0; $i < 10; ++$i) {
+        $datas = [
+            [
+                'stage' => 'Calais - St Omer',
+                'description' => 'Trajet de Calais vers St Omer',
+                'gpxName' => 'Calais-St-Omer.gpx',
+            ],
+            [
+                'stage' => 'St Omer - Bethune',
+                'description' => 'Trajet de St Omer vers Bethune',
+                'gpxName' => 'St-Omer-Bethune.gpx',
+
+            ],
+            [
+                'stage' => 'Bethune- Lens',
+                'description' => 'Trajet de Bethune vers Lens',
+                'gpxName' => 'Bethune-Lens.gpx',
+            ],
+            [
+                'stage' => 'Lens- Lille',
+                'description' => 'Trajet de Lens vers Lille',
+                'gpxName' => 'Lens-Lille.gpx',
+            ],
+            [
+                'stage' => 'Lille - Wattrelos',
+                'description' => 'Trajet de Lille vers Wattrelos',
+                'gpxName' => 'Lille-Wattrelos.gpx',
+            ]
+        ];
+
+       foreach ($datas as $data) {
             $journey = new Journey();
-            $journey->setStage($this->faker->word());
-            $journey->setDescription($this->faker->sentence());
+            $journey->setStage($data['stage']);
+            $journey->setDescription($data['description']);
+            $journey->setGpxName($data['gpxName']);
             $this->manager->persist($journey);
         }
 

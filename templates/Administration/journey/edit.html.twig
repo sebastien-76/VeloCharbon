@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Journey{% endblock %}
+{% block title %}Editer une Trajet{% endblock %}
 
 {% block body %}
-    <h1>Edit Journey</h1>
-
-    {{ include('/Administration/journey/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_journey_index') }}">back to list</a>
-
-    {{ include('/Administration/journey/_delete_form.html.twig') }}
+    <h1 class="text-center my-5">Editer une étape</h1>
+    {{ include('/Administration/journey/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="w-50 d-flex justify-content-around">
+        <a class="btn btn-app" href="{{ path('app_admin_journey_show', {'id':journey.id}) }}">Retour au trajet</a>
+        {{ include('/Administration/journey/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

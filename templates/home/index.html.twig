@@ -1,48 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - VeloCharbon{% endblock %}
+{% block title %}Accueil - VeloCharbon
+{% endblock %}
 
 {% block body %}
-    <div class="container">
+	<div
+		class="container">
 
-    {# Carousel #}
-        <div id="homeCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        {% for image in carouselImages %}
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                <img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="d-block w-100 carousel-image" alt="Carousel image">
-            </div>
-        {% endfor %}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
+		{# Carousel #}
+		<div id="homeCarousel" class="carousel slide my-4" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				{% for image in carouselImages %}
+					<div class="carousel-item {% if loop.first %}active{% endif %}">
+						<img src="{{ vich_uploader_asset(image, 'imageFile') }}" class="d-block w-100 carousel-image" alt="Carousel image">
+					</div>
+				{% endfor %}
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
 
-        <h1>Bienvenue sur VeloCharbon</h1>
+		<h1 class="text-center my-5">Bienvenue sur VéloCharbon</h1>
 
-        <h2>Derniers articles du blog</h2>
-       <div class="row d-flex flex-wrap">
-    {% for blog in latestBlogs %}
-        <div class="col-md-3 mb-4 d-flex">
-            <div class="card flex-fill">
-                {% if blog.imageName %}
-                    <img src="{{ vich_uploader_asset(blog, 'imageFile') }}" class="card-img-top" alt="{{ blog.title }}">
-                {% endif %}
-                <div class="card-body">
-                    <h5 class="card-title">{{ blog.title }}</h5>
-                    <p class="card-text">{{ blog.content|striptags|slice(0, 100) }}...</p>
-                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-primary">Lire la suite</a>
-                </div>
-            </div>
-        </div>
-    {% endfor %}
-</div>
-
-    </div>
+		<h2 class="my-3">Derniers articles du blog</h2>
+		<div class="row d-flex flex-wrap">
+			{% for blog in latestBlogs %}
+				<div class="col-md-3 mb-4 d-flex">
+					<div class="card flex-fill ">
+						{% if blog.imageName %}
+							<img src="{{ vich_uploader_asset(blog, 'imageFile') }}" class="card-img-top" alt="{{ blog.title }}">
+						{% endif %}
+						<div class="card-body">
+							<h5 class="card-title">{{ blog.title }}</h5>
+							<p class="card-text">{{ blog.content|striptags|slice(0, 100) }}...</p>
+							<a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-app">Lire la suite</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<div class="w-100 d-flex justify-content-end">
+			<a class="btn btn-app my-3" href="{{ path('app_blog_index') }}">Toutes les actualités</a>
+		</div>
+        
+		<h2 class="my-3">La VéloCharbonTrajet</h2>
+		<p>La vélocharbon est une véloroute reliant Calais à Wattrelos</p>
+		{% include "Administration/map/_map.html.twig" %}
+		<div class="w-100 d-flex justify-content-end">
+			<a class="btn btn-app my-3" href="{{ path('app_journey_index') }}">Toutes les etapes</a>
+		</div>
+	</div>
 {% endblock %}
