@@ -5,9 +5,9 @@
 {% block body %}
     <h1>Edit ForumComment</h1>
 
-    {{ include('forum_comment/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('/Administration/forum_comment/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('app_forum_comment_index') }}">back to list</a>
 
-    {{ include('forum_comment/_delete_form.html.twig') }}
+    {{ include('/Administration/forum_comment/_delete_form.html.twig') }}
 {% endblock %}
