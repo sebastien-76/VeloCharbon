@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 #[Route('/admin/blog/comment')]
 final class BlogCommentController extends AbstractController
 {
-    #[Route(name: 'app_blog_comment_index', methods: ['GET'])]
+    #[Route(name: 'app_admin_blog_comment_index', methods: ['GET'])]
     public function index(BlogCommentRepository $blogCommentRepository): Response
     {
         return $this->render('/Administration/blog_comment/index.html.twig', [
@@ -25,7 +25,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_blog_comment_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_admin_blog_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $blogComment = new BlogComment();
@@ -45,7 +45,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_blog_comment_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_admin_blog_comment_show', methods: ['GET'])]
     public function show(BlogComment $blogComment): Response
     {
         return $this->render('/Administration/blog_comment/show.html.twig', [
@@ -53,7 +53,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_blog_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_blog_comment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blogId = $blogComment->getBlog()->getId();
@@ -73,7 +73,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_blog_comment_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_blog_comment_delete', methods: ['POST'])]
     public function delete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blogId = $blogComment->getBlog()->getId();
@@ -85,7 +85,7 @@ final class BlogCommentController extends AbstractController
         return $this->redirectToRoute('app_blog_show', ['id' => $blogId], Response::HTTP_SEE_OTHER);
     }
 
-    #[route('/add/{blogId}', name: 'app_blog_comment_add', methods: ['GET', 'POST'])]
+    #[route('/add/{blogId}', name: 'app_admin_blog_comment_add', methods: ['GET', 'POST'])]
     public function add(Request $request, EntityManagerInterface $entityManager, int $blogId, BlogRepository $blogRepository, TokenInterface $token): Response
     {
         $blog = $blogRepository->find($blogId);

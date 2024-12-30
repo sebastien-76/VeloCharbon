@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit BlogComment
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-5">Modification du commentaire</h1>
+
+	<div class="card w-75 mx-auto text-center border-card">
+		{{ include('/Administration/blog_comment/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+	</div>
+{% endblock %}
