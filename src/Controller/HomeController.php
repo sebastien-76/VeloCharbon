@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Entity\User;
+use App\Form\UserType;
 use App\Entity\Journey;
 use Symfony\UX\Map\Map;
 use Symfony\UX\Map\Point;
@@ -10,7 +12,7 @@ use App\Entity\BlogComment;
 use Symfony\UX\Map\Polyline;
 use App\Form\BlogCommentType;
 use App\Repository\BlogRepository;
-use App\Repository\ForumRepository;
+use App\Repository\UserRepository;
 use App\Repository\JourneyRepository;
 use App\Repository\CarouselRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,7 +55,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/blog', name: 'app_blog_index', methods: ['GET'])]
-    public function indexBlog(BlogRepository $blogRepository): Response
+    public function blogIndex(BlogRepository $blogRepository): Response
     {
         return $this->render('blog/index.html.twig', [
             'blogs' => $blogRepository->findAll(),
@@ -71,8 +73,8 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[route('/blog/comment/add/{blogId}', name: 'app_blog_comment_add', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager, int $blogId, BlogRepository $blogRepository, TokenInterface $token): Response
+    #[route('/blog/comment/add/{blogId}', name: 'app_blog_comment_add', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    public function commentAdd(Request $request, EntityManagerInterface $entityManager, int $blogId, BlogRepository $blogRepository, TokenInterface $token): Response
     {
         $blog = $blogRepository->find($blogId);
         $user = $token->getUser();
@@ -100,13 +102,13 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/comment/{id}/edit', name: 'app_blog_comment_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
+    #[Route('/blog/comment/{id}/edit', name: 'app_blog_comment_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    public function commentEdit(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blog = $blogComment->getBlog();
         $blogId = $blog->getId();
 
-        $user= $blogComment->getUser();
+        $user = $blogComment->getUser();
 
         $form = $this->createForm(BlogCommentType::class, $blogComment);
         $form->handleRequest($request);
@@ -127,8 +129,8 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/blog/comment/{id}', name: 'app_blog_comment_delete', methods: ['POST'])]
-    public function delete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
+    #[Route('/blog/comment/{id}', name: 'app_blog_comment_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
+    public function commentDelete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blogId = $blogComment->getBlog()->getId();
         if ($this->isCsrfTokenValid('delete' . $blogComment->getId(), $request->getPayload()->getString('_token'))) {
@@ -141,7 +143,7 @@ class HomeController extends AbstractController
 
 
     #[Route('/journey', name: 'app_journey_index', methods: ['GET'])]
-    public function indexJourney(JourneyRepository $journeyRepository): Response
+    public function journeyIndex(JourneyRepository $journeyRepository): Response
     {
         return $this->render('journey/index.html.twig', [
             'journeys' => $journeyRepository->findAll(),
@@ -149,7 +151,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/journey/{id}', name: 'app_journey_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
-    public function show(Journey $journey): Response
+    public function journeyShow(Journey $journey): Response
     {
 
         $nomFichier = $journey->getGpxName();
@@ -176,11 +178,37 @@ class HomeController extends AbstractController
         } else {
             $map = null;
         }
-        
+
         return $this->render('journey/show.html.twig', [
             'journey' => $journey,
             'map' => $map
         ]);
     }
 
+    #[Route('/compte/{id}', name: 'app_profile_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
+    public function show(User $user): Response
+    {
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
+    }
+
+    #[Route('compte/{id}/edit', name: 'app_profile_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    }
+    
 }

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-5">Mon compte</h1>
+	<div class="card w-75 mx-auto text-center border-card">
+		<div class="card-body">
+			<h5>Email :</h5>
+			<p>{{ user.email }}</p>
+
+			<h5>Nom :</h5>
+			<p>{{ user.userName }}</p>
+
+			<h5>Date de création :</h5>
+			<p>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+
+			<h5>Dernière modification :</h5>
+			<p>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
+
+			<h5>Date de suppression :</h5>
+			<p>{{ user.updatedAt ? user.deletedAt|date('Y-m-d H:i:s') : '' }}</p>
+		</div>
+	</div>
+	<div class="w-50 d-flex justify-content-around align-content-center mx-auto">
+		<button class="btn btn-app my-5">
+			<a href="{{ path('app_profile_edit', {'id': user.id}) }}">Modifier</a>
+		</button>
+	</div>
+{% endblock %}
