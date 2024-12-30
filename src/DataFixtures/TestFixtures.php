@@ -81,6 +81,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         for ($i = 0; $i < 15; ++$i) {
             $forum = new Forum();
             $forum->setTitle($this->faker->word());
+            $forum->setDescription($this->faker->sentence());
             $category = $this->faker->randomElement($categories);
             $forum->setCategory($category);
             $user = $this->faker->randomElement($users);
