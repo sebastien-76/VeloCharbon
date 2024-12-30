@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification utilisateur
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-5">Modification du compte</h1>
+
+	{{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+	<div class="w-50 d-flex justify-content-around align-content-center mx-auto">
+		<a class="btn btn-app my-5" href="{{ path('app_profile_show', {'id':user.id}) }}">Retour au compte</a>
+	</div>
+{% endblock %}

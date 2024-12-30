@@ -9,42 +9,51 @@
 							<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 								<span class="navbar-toggler-icon"></span>
 							</button>
-							<div class="collapse navbar-collapse" id="navbarSupportedContent">
-								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{path('app_home')}}">Accueil</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_journey_index')}}">Trajets</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_blog_index')}}">Actualités</a>
-									</li>
-									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_forum_index')}}">Forum</a>
-									</li>
-									{% if is_granted('ROLE_ADMIN') %}
-									<li class="nav-item">
-										<a class="nav-link active nav-a mx-2" href="{{ path('app_administration')}}">Admin</a>
-									</li>
-									{% endif %}
-								</ul>
-							</div>
 							{% if app.user %}
 								<p class="bienvenue my-auto w-25">Bonjour
 									{{ app.user.userName }}</p>
-{# 								<a href="{{ path('app_profile_show') }}">Mon compte </a>
- #}								<a class="nav-link active nav-a" href="{{ path('app_logout') }}"> Déconnexion</a>
-							{% else %}
-								<div class="mb-3">
-									<a class="nav-link active nav-a" href="{{ path('app_login') }}">Connexion</a>
-								</div>
 							{% endif %}
+							<div class="collapse navbar-collapse" id="navbarSupportedContent">
+								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+									<li class="nav-item">
+										<a class="nav-link active nav-a mx-1" href="{{path('app_home')}}">Accueil</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active nav-a mx-1" href="{{ path('app_journey_index')}}">Trajets</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active nav-a mx-1" href="{{ path('app_blog_index')}}">Actualités</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link active nav-a mx-1" href="{{ path('app_forum_index')}}">Forum</a>
+									</li>
+									{% if is_granted('ROLE_ADMIN') %}
+										<li class="nav-item">
+											<a class="nav-link active nav-a mx-1" href="{{ path('app_administration')}}">Admin</a>
+										</li>
+									{% endif %}
+									{% if app.user %}
+										<li class="nav-item">
+											<a class="nav-link active nav-a mx-1" href="{{ path('app_profile_show', {'id':app.user.id}) }}">Mon compte
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link active nav-a mx-1" href="{{ path('app_logout') }}">
+												Déconnexion</a>
+										</li>
+									{% else %}
+										<div class="mb-3">
+											<li class="nav-item">
+												<a class="nav-link active nav-a mx-1" href="{{ path('app_login') }}">Connexion</a>
+											</li>
+										</div>
+									{% endif %}
+							</ul>
 						</div>
-					</nav>
-				</div>
+
+					</div>
+				</nav>
 			</div>
 		</div>
 	</div>
-
-</div>{% endblock %}
+</div></div>{% endblock %}
