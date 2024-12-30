@@ -16,14 +16,14 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class MessagesController extends AbstractController
 {
-/*     #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
+    #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
     public function index(ForumRepository $forumRepository): Response
     {
         $forums = $forumRepository->findAll();
         return $this->render('messages/index.html.twig', [
             'forums' => $forums,
         ]);
-    } */
+    }
 
     #[Route('/forum/{forumId}', name: 'app_forum_show', methods: ['GET'], requirements:['id' => Requirement::DIGITS])]
     public function show(int $forumId, ForumRepository $forumRepository): Response

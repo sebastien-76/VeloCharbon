@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout commentaire{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-5">Ajouter un commentaire</h1>
+	<div class="card w-75 mx-auto text-center border-card">
+    {{ include('blog_comment/_form.html.twig') }}
+    </div>
+{% endblock %}
