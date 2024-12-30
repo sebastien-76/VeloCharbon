@@ -1,38 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateur{% endblock %}
+{% block title %}Utilisateur
+{% endblock %}
 
 {% block body %}
-    <h1>Utilisateur</h1>
+	<h1 class="text-center my-5">Utilisateur</h1>
 	<div class="card w-75 mx-auto text-center border-card">
 		<div class="card-body">
-            <h5>Email :</h5>
-            <p>{{ user.email }}</p>
+			<h5>Email :</h5>
+			<p>{{ user.email }}</p>
 
-            <h5>Roles :</h5>
-            {% for role in user.roles %}
-             <p>{{ role }}</p>               
-            {% endfor %}
+			<h5>Roles :</h5>
+			{% for role in user.roles %}
+				<p>{{ role }}</p>
+			{% endfor %}
 
-            <h5>Nom :</h5>
-            <p>{{ user.userName }}</p>
+			<h5>Nom :</h5>
+			<p>{{ user.userName }}</p>
 
-            <h5>Date de création :</h5>
-            <p>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+			<h5>Date de création :</h5>
+			<p>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</p>
 
-            <h5>Dernière modification :</h5>
-            <p>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+			<h5>Dernière modification :</h5>
+			<p>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
 
-            <h5>Date de suppression :</h5>
-            <p>{{ user.updatedAt ? user.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-        </div>
-    </div>
-    <button class="btn btn-app my-5">
-        <a href="{{ path('app_user_index') }}">Les utilisateurs</a>
-    </button>
-    <button class="btn btn-app my-5">
-        <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
-    </button>
-
-    {{ include('Administration/user/_delete_form.html.twig') }}
+			{% if user.deletedAt %}
+				<h5>Date de suppression :</h5>
+				<p>{{ user.deletedAt|date('Y-m-d H:i:s') }}</p>
+			{% endif %}
+		</div>
+	</div>
+	<div class="w-50 d-flex justify-content-around align-content-center mx-auto">
+		<button class="btn btn-app my-5">
+			<a href="{{ path('app_admin_user_index') }}">Les utilisateurs</a>
+		</button>
+		<button class="btn btn-app my-5">
+			<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Modifier</a>
+		</button>
+		{{ include('Administration/user/_delete_form.html.twig') }}
+	</div>
 {% endblock %}
