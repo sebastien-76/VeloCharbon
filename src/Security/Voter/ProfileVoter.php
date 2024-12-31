@@ -3,20 +3,20 @@
 namespace App\Security\Voter;
 
 use App\Entity\User;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-final class BlogCommentVoter extends Voter
+final class ProfileVoter extends Voter
 {
-    public const BLOGCOMMENT_EDIT = 'BLOGCOMMENT_EDIT';
+    public const PROFILE_ACCESS = 'PROFILE_ACCESS';
+
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::BLOGCOMMENT_EDIT])
-            && $subject instanceof \App\Entity\BlogComment;
+        return in_array($attribute, [self::PROFILE_ACCESS])
+            /* && $subject instanceof \App\Entity\User */;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
@@ -30,10 +30,10 @@ final class BlogCommentVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case self::BLOGCOMMENT_EDIT:
+            case self::PROFILE_ACCESS:
                 // logic to determine if the user can EDIT
                 // return true or false
-                return $subject->getUser() === $user || in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_MODERATOR', $user->getRoles());
+                return $subject->getId() === $user->getId();
                 break;
         }
 
