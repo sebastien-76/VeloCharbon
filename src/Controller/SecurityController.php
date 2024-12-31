@@ -22,6 +22,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(RegistrationFormType::class, $user);
 
         $form->handleRequest($request);
+        $user->setRoles(['ROLE_USER']);
         if ($form->isSubmitted() && $form->isValid()) {
             // Encode the password
             $user->setPassword(
@@ -36,7 +37,7 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             // Redirect to a success page or login page
-            return $this->redirectToRoute('app_login');
+            return $this->redirectToRoute('app_logout');
         }
 
         return $this->render('security/register.html.twig', [
