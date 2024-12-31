@@ -1,13 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-<h1>Register</h1>
+	<h1 class="text-center my-5">Inscription</h1>
+	{{ form_start(registrationForm) }}
+	<div class="card w-75 mx-auto text-center border-card bg-dark-beige">
 
-{{ form_start(registrationForm) }}
-{{ form_widget(registrationForm) }}
-<button type="submit">Register</button>
-{{ form_end(registrationForm) }}
+		<label class="my-2" for="inputEmail">Email :
+		</label>
+		{{ form_widget(registrationForm.email, {'attr': {'class':'my-2 w-75 mx-auto'}}) }}
+		<label class="my-2" for="inputUserName">Nom d'utilisateur :
+		</label>
+		{{ form_widget(registrationForm.userName, {'attr': {'class':'my-2 w-75 mx-auto'}})}}
+		<label class="my-2" for="inputPassword">Mot de passe :
+		</label>
+		{{ form_widget(registrationForm.password, {'attr': {'class':'my-2 w-75 mx-auto'}})}}
 
+		<div class="d-flex justify-content-center my-5">
+			<button class="btn btn-lg btn-app" type="submit">S'inscrire</button>
+		</div>
+
+		<p>Déjà inscrit,
+			<a href="{{ path('app_login') }}">connectez-vous</a>
+		</p>
+	</div>
+	{{ form_end(registrationForm) }}
 {% endblock %}
