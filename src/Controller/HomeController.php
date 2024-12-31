@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -186,6 +187,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/compte/{id}', name: 'app_profile_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted('PROFILE_ACCESS', subject:"user")]
     public function show(User $user): Response
     {
         return $this->render('user/show.html.twig', [
@@ -194,6 +196,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('compte/{id}/edit', name: 'app_profile_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted('PROFILE_ACCESS', subject:"user")]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UserType::class, $user);
