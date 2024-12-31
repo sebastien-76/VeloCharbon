@@ -14,16 +14,18 @@ use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
+#[Route(path:"/messages")]
+
 class MessagesController extends AbstractController
 {
-/*     #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
+     #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
     public function index(ForumRepository $forumRepository): Response
     {
         $forums = $forumRepository->findAll();
         return $this->render('messages/index.html.twig', [
             'forums' => $forums,
         ]);
-    } */
+    }
 
     #[Route('/forum/{forumId}', name: 'app_forum_show', methods: ['GET'], requirements:['id' => Requirement::DIGITS])]
     public function show(int $forumId, ForumRepository $forumRepository): Response
@@ -34,12 +36,13 @@ class MessagesController extends AbstractController
         return $this->render('messages/show.html.twig', [
             'forum' => $forum,
             'forums'=> $forums,
-            'comments'=> $comments
+            'comments'=> $comments,
+            'forumId'=> $forumId
         ]);
     }
 
     #[route('/add/{forumId}', name: 'app_forum_comment_add', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager, int $userId, int $forumId, int $forumCommentId, ForumRepository $forumRepository, TokenInterface $token, UserRepository $userRepository): Response
+    public function add(Request $request, EntityManagerInterface $entityManager, int $forumId, ForumRepository $forumRepository, TokenInterface $token, UserRepository $userRepository): Response
     {
 
         $forum = $forumRepository->find($forumId);
@@ -54,18 +57,33 @@ class MessagesController extends AbstractController
             $entityManager->persist($forumComment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_blog_show', [
-                'id' => $forumId,
-                'forumComment' => $forumComment,
-                'form' => $form,
-            ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_forum_show', ['forumId'=> $forumId], Response::HTTP_SEE_OTHER); 
         }
 
-        return $this->render('/Administration/blog_comment/new.html.twig', [
+        return $this->render('/messages/new.html.twig', [
             'forumId' => $forumId,
             'forumComment' => $forumComment,
             'form' => $form,
         ]);
     }
-       
+
+    #[Route('/forumComment/{forumCommentId}/edit', name: 'app_forum_comment_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, ForumComment $forumComment, EntityManagerInterface $entityManager): Response
+    {
+        $forumId = $forumComment->getForum()->getId();
+        $form = $this->createForm(ForumCommentType::class, $forumComment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_forum_comment_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('/forum_comment/edit.html.twig', [
+            'forumComment' => $forumComment,
+            'form' => $form,
+            'forumId' => $forumId,
+        ]);
+    }
 }

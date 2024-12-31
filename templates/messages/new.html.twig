@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ForumComment{% endblock %}
+
+{% block body %}
+    <h1>Create new ForumComment</h1>
+
+    {{ include('/messages/_form.html.twig') }}
+
+    <a href="{{ path('app_forum_index') }}">back to list</a>
+{% endblock %}

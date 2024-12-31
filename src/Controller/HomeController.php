@@ -96,12 +96,4 @@ class HomeController extends AbstractController
             'map' => $map
         ]);
     }
-
-    #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
-    public function indexForum(ForumRepository $forumRepository): Response
-    {
-        return $this->render('/Administration/forum/index.html.twig', [
-            'forums' => $forumRepository->findAll(),
-        ]);
-    }
 }
