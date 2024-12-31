@@ -16,23 +16,6 @@ class ForumCommentType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('deletedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('updatedAt', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('forum', EntityType::class, [
-                'class' => Forum::class,
-                'choice_label' => 'id',
-            ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
         ;
     }
 

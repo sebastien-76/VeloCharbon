@@ -184,7 +184,7 @@ class HomeController extends AbstractController
             'map' => $map
         ]);
     }
-
+  
     #[Route('/compte/{id}', name: 'app_profile_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
     public function show(User $user): Response
     {
@@ -210,5 +210,5 @@ class HomeController extends AbstractController
             'form' => $form,
         ]);
     }
-    
+
 }

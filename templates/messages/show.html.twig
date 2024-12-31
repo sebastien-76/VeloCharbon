@@ -7,9 +7,9 @@
 		<div
 			class="row">
 			{# Sidebar avec la liste des rooms #}
-			<nav class="col-md-3 col-lg-2 sidebar shadow-sm h-100">
+			<nav class="col-md-3 bg-warning col-lg-2 sidebar shadow-sm h-100">
 				<div class="p-4 bg-white">
-					<h4 class="mb-4 text-primary border-bottom pb-2">Liste des rooms</h4>
+					<h4 class="mb-4 text-black border-bottom pb-2">Sujets</h4>
 					<ul class="nav nav-pills flex-column gap-2">
 						{% for forum in forums %}
 								<li class="nav-item">
@@ -26,7 +26,7 @@
 	{# Section principale avec les messages #}
 			<div class="col-md-9 col-lg-10">
 				<div class="card h-80">
-					<div class="card-header bg-primary text-white">
+					<div class="card-header bg-warning text-white">
 						<h5 class="mb-0">{{ forum.description }}</h5>
 					</div>
 
@@ -34,15 +34,15 @@
 					<div class="card-body" style="height: calc(100vh - 300px); overflow-y: auto;">
 						<h4 class="text-center pt-5 fw-bold"></h4>
 						{% for comment in comments %}
-								<li class="nav-item">
-										<i class="bi bi-chat-left me-2">
-											{{ comment.description }}
-										</i>
-								</li>
+									<i class="bi bi-chat-left ps-2 me-2 my-2 card mx-auto border-card">
+										{{ comment.description }}
+										<a class="mx-2" href="{{ path('app_forum_comment_edit', {'forumId': forum.Id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+										<br>
+									</i>
 						{% endfor %}
 								
-								<button class="btn btn-app my-5">
-                					<a href="{{ path('app_forum_comment_add', {'forumId': forum.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
+								<button class="btn btn-app bg-warning my-5">
+                					<a href="{{ path('app_forum_comment_add', {'forumId': forum.id} )}}" class="btn bg-warning btn-app">Ajouter un commentaire</a>
 								</button>
 					</div>
 				</div>
