@@ -18,18 +18,24 @@
 			{% for blogComment in blog.blogComment %}
 				<div class="card w-75 mx-auto my-3 text-center d-flex flex-row justify-content-between">
 					<p class="my-3 ms-2">{{ blogComment.description }}</p>
-					<div class="d-flex flex-row justify-content-between align-items-center">
-						<a class="mx-2" href="{{ path('app_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-						<twig:ShowBlog :blogComment="blogComment"/>
-					</div>
+					{% if is_granted('BLOGCOMMENT_EDIT', blogComment) %}
+						<div class="d-flex flex-row justify-content-between align-items-center">
+							<a class="mx-2" href="{{ path('app_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+							<twig:ShowBlog :blogComment="blogComment"/>
+						</div>
+					{% endif %}
 				</div>
 			{% endfor %}
 			<button class="btn btn-app my-5">
                 <a href="{{ path('app_blog_comment_add', {'blogId': blog.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
             </button>
-			<div class=" d-flex flex-row justify-content-end align-items-center">
-				<a class="mx-2" href="{{ path('app_admin_blog_edit', {'id':blog.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-				{{ include('/Administration/blog/_delete_form.html.twig') }}
-			</div>
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class=" d-flex flex-row justify-content-end align-items-center">
+					<a class="mx-2" href="{{ path('app_admin_blog_edit', {'id':blog.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+					{{ include('/Administration/blog/_delete_form.html.twig') }}
+				</div>
+			{% endif %}
+		</div>
+	</div>	
 
-		{% endblock %}
+{% endblock %}

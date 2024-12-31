@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification utilisateur{% endblock %}
+{% block title %}Modification utilisateur
+{% endblock %}
 
 {% block body %}
-    <h1>Modification d'un utilisateur</h1>
+	<h1 class="text-center my-5">Modification d'un utilisateur</h1>
 
-    {{ include('Administration/user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+	{{ include('Administration/user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
+	<div class="w-50 d-flex justify-content-around align-content-center mx-auto">
+		<a class="btn btn-app my-5" href="{{ path('app_admin_user_show', {'id':user.id}) }}">Retour à l'utilisateur</a>
+		{{ include('Administration/user/_delete_form.html.twig') }}
+	</div>
 
-    <a class="btn btn-app my-5" href="{{ path('app_user_show', {'id':user.id}) }}">Retour à l'utilisateur</a>
-
-    {{ include('Administration/user/_delete_form.html.twig') }}
 {% endblock %}

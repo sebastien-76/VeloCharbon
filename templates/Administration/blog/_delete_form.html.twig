@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('app_blog_delete', {'id': blog.id}) }}">
+<form method="post" action="{{ path('app_admin_blog_delete', {'id': blog.id}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ blog.id) }}">
     <button class="btn"><img src="{{ asset('../assets/images/icones/trash.svg') }}" alt="edition"></button>
 </form>

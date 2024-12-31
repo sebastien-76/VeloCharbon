@@ -18,7 +18,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class MessagesController extends AbstractController
 {
-     #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
+
+    #[Route('/forum', name: 'app_forum_index', methods: ['GET'])]
     public function index(ForumRepository $forumRepository): Response
     {
         $forums = $forumRepository->findAll();

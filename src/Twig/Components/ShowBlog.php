@@ -46,6 +46,4 @@ class ShowBlog extends AbstractController
     {
         return $this->userRepository->findAll();
     }
-
-
 }
