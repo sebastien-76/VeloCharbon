@@ -76,3 +76,7 @@ body {
     height: 300px; /* Ajustez cette valeur selon vos besoins */
     object-fit: cover; /* Cette propriété permet de garder les proportions de l'image */
 }
+
+.footer {
+    height: 5rem;
+}

@@ -20,7 +20,9 @@
 	</head>
 	<body>
 		{% include "_header.html.twig" %}
+		<div class="d-flex flex-column min-vh-100">
 		{% block body %}{% endblock %}
+		</div>
 		{% include "_footer.html.twig" %}
 	</body>
 </html>

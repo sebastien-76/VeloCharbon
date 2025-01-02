@@ -5,23 +5,27 @@
 
 {% block body %}
 	<h1 class="text-center my-5">Tous les trajets</h1>
+	{# Bouton d'ajout d'un trajet #}
 	<div class="w-100 d-flex justify-content-center">
 		<a class="btn btn-app my-3" href="{{path('app_admin_journey_new')}}">Ajouter un trajet</a>
 	</div>
+	{# Bouton de retour au menu d'administration #}
 	<div class="w-100 d-flex justify-content-end">
 		<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
 	</div>
-		<div class="row d-flex flex-wrap w-75 mx-auto my-2">
-			{% for journey in journeys %}
-				<div class="col-md-3 mb-4 d-flex">
-					<div class="card flex-fill">
-						<div class="card-body">
-							<h5 class="card-title">{{ journey.stage}}</h5>
-							<p class="card-text">{{ journey.description|striptags|slice(0, 100) }}...</p>
-							<a href="{{ path('app_admin_journey_show', {'id': journey.id}) }}" class="btn btn-app">Lire la suite</a>
-						</div>
+	{# Liste des trajets #}
+	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
+		{% for journey in journeys %}
+			<div class="col-md-3 mb-4 d-flex">
+				<div class="card flex-fill">
+					<div class="card-body">
+						<h5 class="card-title">{{ journey.stage}}</h5>
+						<p class="card-text">{{ journey.description|striptags|slice(0, 100) }}...</p>
+						{# Bouton permettant de voir le détail du trajet #}
+						<a href="{{ path('app_admin_journey_show', {'id': journey.id}) }}" class="btn btn-app">Lire la suite</a>
 					</div>
 				</div>
+			</div>
 		{% endfor %}
 	</div>
 {% endblock %}
