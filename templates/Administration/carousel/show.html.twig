@@ -1,42 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Carousel{% endblock %}
+{% block title %}Carousel
+{% endblock %}
 
 {% block body %}
-    <h1>Carousel</h1>
+	<h1 class="text-center my-5">Détail d'une image</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ carousel.id }}</td>
-            </tr>
-            <tr>
-                <th>ImageName</th>
-                <td>{{ carousel.imageName }}</td>
-            </tr>
-            <tr>
-                <th>ImageSize</th>
-                <td>{{ carousel.imageSize }}</td>
-            </tr>
-            <tr>
-                <th>DeletedAt</th>
-                <td>{{ carousel.deletedAt ? carousel.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ carousel.createdAt ? carousel.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ carousel.updatedAt ? carousel.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_carousel_index') }}">back to list</a>
-
-    <a href="{{ path('app_carousel_edit', {'id': carousel.id}) }}">edit</a>
-
-    {{ include('Administration/carousel/_delete_form.html.twig') }}
+	<div class="card w-75 mx-auto text-center border-card">
+		<div
+			class="card-body">
+			{# Affichage du nom de l'image #}
+			<h5 class="my-3">
+				Nom de l'image :
+			</h5>
+			<p class="card-text my-5">
+				{{ carousel.imageName}}
+			</p>
+			{# Affichage de l'image #}
+			<h5 class="my-3">
+				Image :
+			</h5>
+			{% if carousel.imageName %}
+				<img src="{{ vich_uploader_asset(carousel, 'imageFile') }}" class="card-img-top" alt="{{ carousel.imageName }}">
+			{% endif %}
+			{# Boutons de modification et de suppression de l'image #}
+			<div class="d-flex flex-row justify-content-around align-items-center">
+				<a class="btn btn-app mx-2 my-3" href="{{ path('app_admin_carousel_edit', {'id':carousel.id}) }}">
+					Modifier l'image</a>
+				{{ include('/Administration/carousel/_delete_form.html.twig') }}
+			</div>
+		</div>
+	</div>
 {% endblock %}

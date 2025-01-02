@@ -6,6 +6,7 @@ use App\Entity\Blog;
 use App\Entity\User;
 use App\Entity\Forum;
 use App\Entity\Journey;
+use App\Entity\Carousel;
 use App\Entity\Category;
 use App\Entity\BlogComment;
 use App\Entity\ForumComment;
@@ -43,6 +44,7 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
         $this->loadBlogs();
         $this->loadBlogComments();
         $this->loadJourneys();
+        $this->loadCarousel();
     }
 
     public function loadUsers(): void
@@ -185,6 +187,32 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $journey->setDescription($data['description']);
             $journey->setGpxName($data['gpxName']);
             $this->manager->persist($journey);
+        }
+
+        $this->manager->flush();
+    }
+
+    public function loadCarousel(): void
+    {
+        $datas = [
+            [
+                'imageName' => 'carte.png',
+            ],
+            [
+                'imageName' => 'coucher_soleil.avif',
+            ],
+            [
+                'imageName' => 'velo_ville.avif',
+            ],
+            [
+                'imageName' => 'velos_colines.webp',
+            ],
+        ];
+
+        foreach ($datas as $data) {
+            $carousel = new Carousel();
+            $carousel->setImageName($data['imageName']);
+            $this->manager->persist($carousel);
         }
 
         $this->manager->flush();

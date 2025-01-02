@@ -1,4 +1,12 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+
+	<h5 class="my-3">Modifier l'image</h5>
+	<p>Nom l'image:</p>
+	{{ carousel.imageName}}
+	{# Affichage du bouton de choix de fichier #}
+	{{ form_widget(form.imageFile, {'attr': {'class': 'w-50 mx-auto my-3'}})}}
+	{# Bouton de mise à jour{#  #}
+	<button class="w-25 btn btn-app my-5 mx-auto">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

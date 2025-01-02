@@ -1,43 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Carousel index{% endblock %}
+{% block title %}Carousel
+{% endblock %}
 
 {% block body %}
-    <h1>Carousel index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>ImageName</th>
-                <th>ImageSize</th>
-                <th>DeletedAt</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for carousel in carousels %}
-            <tr>
-                <td>{{ carousel.id }}</td>
-                <td>{{ carousel.imageName }}</td>
-                <td>{{ carousel.imageSize }}</td>
-                <td>{{ carousel.deletedAt ? carousel.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ carousel.createdAt ? carousel.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ carousel.updatedAt ? carousel.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_carousel_show', {'id': carousel.id}) }}">show</a>
-                    <a href="{{ path('app_carousel_edit', {'id': carousel.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_carousel_new') }}">Create new</a>
+	<h1 class="text-center my-5">Carousel</h1>
+	{# Bouton d'ajout d'une image #}
+	<div class="w-100 d-flex justify-content-center">
+		<a class="btn btn-app my-3" href="{{path('app_admin_carousel_new')}}">Ajouter une image</a>
+	</div>
+	{# Bouton de retour au menu d'administration #}
+	<div class="w-100 d-flex justify-content-end">
+		<a class="btn btn-app my-2 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
+	</div>
+	{# Liste des images composant le carousel #}
+	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
+		{% for carousel in carousels%}
+			<div class="col-md-3 mb-4 d-flex">
+				<div class="card flex-fill">
+					<div class="card-body">
+						<h5 class="card-title">{{ carousel.imageName}}</h5>
+                        {# Affichage de l'image #}
+						{% if carousel.imageName %}
+							<img src="{{ vich_uploader_asset(carousel, 'imageFile') }}" class="card-img-top" alt="{{ carousel.imageName }}">
+						{% endif %}
+                        {# Bouton permettant de voir le détail de l'image #}
+						<a href="{{ path('app_admin_carousel_show', {'id': carousel.id}) }}" class="btn btn-app my-3">Voir la suite</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}
