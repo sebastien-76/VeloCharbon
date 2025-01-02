@@ -8,6 +8,9 @@
 	<div class="w-100 d-flex justify-content-center">
 		<a class="btn btn-app my-3" href="{{path('app_admin_blog_new')}}">Ajouter une actualité</a>
 	</div>
+	<div class="w-100 d-flex justify-content-end">
+		<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
+	</div>
 	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
 		{% for blog in blogs %}
 			<div class="col-md-3 mb-4 d-flex">
