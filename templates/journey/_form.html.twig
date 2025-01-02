@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+
+<div class="card w-75 my-5 mx-auto text-center border-card">
+	<h5 class="my-3">Etape</h5>
+	{{ form_widget(form.stage, {'attr': {'class': 'w-50 mx-auto'}})}}
+
+	<h5 class="my-3">Description</h5>
+	{{ form_widget(form.description, {'attr': {'class': 'w-50 mx-auto'}})}}
+
+	<h5 class="my-3">Fichier GPX</h5>
+	<p>{{ journey.gpxName }}</p>
+
+	<h5 class="my-3">Modifier le gpx</h5>
+	{{ form_widget(form.gpxFile)}}
+
+	<button class="w-25 btn btn-app my-5 mx-auto">{{ button_label|default('Save') }}</button>
+
+</div>
+
+{{ form_end(form, {render_rest: false}) }}

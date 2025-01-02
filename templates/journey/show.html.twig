@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Actualité
+{% block title %}Trajet
 {% endblock %}
 
 {% block body %}
@@ -14,7 +14,10 @@
 			</p>
 			{% include "Administration/map/_map.html.twig" %}
 		</div>
+		<div class="w-100 d-flex justify-content-around mt-3 mb-5">
+			<a class="btn btn-app" href="{{ path('app_journey_index') }}">Retour aux trajets</a>
+			<a class="btn btn-app" href="{{ path('app_journey_edit', {'id':journey.id}) }}">Modifier le trajet</a>
+		</div>
 	</div>
-
 
 {% endblock %}
