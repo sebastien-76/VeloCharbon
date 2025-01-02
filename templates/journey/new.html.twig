@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout trajet{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-5">Ajouter un trajet</h1>
+
+    {{ include('journey/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+    <a href="{{ path('app_journey_index') }}">retour aux trajets</a>
+{% endblock %}

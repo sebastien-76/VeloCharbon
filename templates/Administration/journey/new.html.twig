@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Journey{% endblock %}
+{% block title %}Ajout trajet{% endblock %}
 
 {% block body %}
-    <h1>Create new Journey</h1>
+    <h1 class="text-center my-5">Ajouter un trajet</h1>
 
-    {{ include('Administration/journey/_form.html.twig') }}
+    {{ include('Administration/journey/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    <a href="{{ path('app_journey_index') }}">back to list</a>
+    <a href="{{ path('app_admin_journey_index') }}">Retour aux trajets</a>
 {% endblock %}
