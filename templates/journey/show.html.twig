@@ -16,7 +16,9 @@
 		</div>
 		<div class="w-100 d-flex justify-content-around mt-3 mb-5">
 			<a class="btn btn-app" href="{{ path('app_journey_index') }}">Retour aux trajets</a>
-			<a class="btn btn-app" href="{{ path('app_journey_edit', {'id':journey.id}) }}">Modifier le trajet</a>
+			{% if is_granted('ROLE_MOD') %}
+				<a class="btn btn-app" href="{{ path('app_journey_edit', {'id':journey.id}) }}">Modifier le trajet</a>
+			{% endif %}
 		</div>
 	</div>
 
