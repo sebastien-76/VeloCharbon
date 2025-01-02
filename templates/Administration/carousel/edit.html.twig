@@ -1,13 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Carousel{% endblock %}
+{% block title %}Carousel
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Carousel</h1>
-
-    {{ include('Administration/carousel/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_carousel_index') }}">back to list</a>
-
-    {{ include('Administration/carousel/_delete_form.html.twig') }}
+	<h1 class="text-center my-5">Modification d'une image</h1>
+	<div class="card w-75 my-5 mx-auto text-center border-card">
+		{{ include('Administration/carousel/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+		{# Boutons de retour et de suppression de l'image #}
+		<div class="d-flex flex-row justify-content-around align-items-center">
+			<a class="btn btn-app mx-2 my-3" href="{{ path('app_admin_carousel_show', {'id':carousel.id}) }}">Retour à l'image</a>
+			{{ include('Administration/carousel/_delete_form.html.twig') }}
+		</div>
+	</div>
 {% endblock %}
