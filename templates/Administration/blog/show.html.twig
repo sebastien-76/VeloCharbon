@@ -12,24 +12,38 @@
 		{% endif %}
 
 		<div class="card-body">
-			<p class="card-text mb-5">
+			<h5 class="card-text mb-5 py-3">
 				{{ blog.content}}
-			</p>
+			</h5>
 			{% for blogComment in blog.blogComment %}
-				<div class="card w-75 mx-auto my-3 text-center d-flex flex-row justify-content-between">
-					<p class="my-3 ms-2">{{ blogComment.description }}</p>
-					<div class="d-flex flex-row justify-content-between align-items-center">
-						<a class="mx-2" href="{{ path('app_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-						<twig:ShowBlog :blogComment="blogComment"/>
+				<div class="card w-75 mx-auto my-2 text-center d-flex flex-column justify-content-between">
+					<div class="d-flex flex-row my-2">
+						<h6 class="mx-2">
+							{{ blogComment.user.userName }}</h6>
+						<p class="mx-2 small">
+							{{ blogComment.createdAt|date('Y-m-d H:i:s') }}</p>
+					</div>
+					<div>
+						<p class="my-1">{{ blogComment.description }}</p>
+						{% if is_granted('BLOGCOMMENT_EDIT', blogComment) %}
+							<div class="d-flex flex-row justify-content-end align-items-center py-2">
+								<a class="mx-2" href="{{ path('app_admin_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+								<twig:ShowBlog :blogComment="blogComment"/>
+							</div>
+						{% endif %}
 					</div>
 				</div>
 			{% endfor %}
 			<button class="btn btn-app my-5">
-                <a href="{{ path('app_blog_comment_add', {'blogId': blog.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
-            </button>
-			<div class=" d-flex flex-row justify-content-end align-items-center">
-				<a class="mx-2" href="{{ path('app_admin_blog_edit', {'id':blog.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-				{{ include('/Administration/blog/_delete_form.html.twig') }}
-			</div>
+				<a href="{{ path('app_admin_blog_comment_add', {'blogId': blog.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
+			</button>
+			{% if is_granted('ROLE_ADMIN') %}
+				<div class=" d-flex flex-row justify-content-end align-items-center">
+					<a class="mx-2" href="{{ path('app_admin_blog_edit', {'id':blog.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+					{{ include('/Administration/blog/_delete_form.html.twig') }}
+				</div>
+			{% endif %}
+		</div>
+	</div>
 
-		{% endblock %}
+{% endblock %}

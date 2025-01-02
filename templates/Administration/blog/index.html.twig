@@ -18,7 +18,7 @@
 					<div class="card-body">
 						<h5 class="card-title">{{ blog.title }}</h5>
 						<p class="card-text">{{ blog.content|striptags|slice(0, 100) }}...</p>
-						<a href="{{ path('app_blog_show', {'id': blog.id}) }}" class="btn btn-app">Lire la suite</a>
+						<a href="{{ path('app_admin_blog_show', {'id': blog.id}) }}" class="btn btn-app">Lire la suite</a>
 					</div>
 				</div>
 			</div>
