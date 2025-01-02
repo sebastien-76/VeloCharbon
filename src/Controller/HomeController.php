@@ -199,6 +199,7 @@ class HomeController extends AbstractController
 
     //Route de la page publique de création d'un trajet
     #[Route('/journey/new', name: 'app_journey_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_MOD')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $journey = new Journey();
@@ -220,6 +221,7 @@ class HomeController extends AbstractController
 
     //Route de la page publique de modification d'un trajet
     #[Route('/journey/{id}/edit', name: 'app_journey_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted('ROLE_MOD')]
     public function journeyEdit(Request $request, Journey $journey, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(JourneyType::class, $journey);
@@ -239,6 +241,7 @@ class HomeController extends AbstractController
 
     //Route de la page publique de suppression d'un trajet    #[Route('/{id}', name: 'app_admin_journey_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
     #[Route('/journey/{id}', name: 'app_journey_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
+    #[IsGranted('ROLE_MOD')]
     public function journeyDelete(Request $request, Journey $journey, EntityManagerInterface $entityManager): Response
     {
         // if ($this->isCsrfTokenValid('delete'.$journey->getId(), $request->getPayload()->getString('_token'))) {
