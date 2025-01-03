@@ -45,6 +45,12 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
                 'roles' => ['ROLE_ADMIN'],
                 'userName' => 'admin'
             ],
+            [
+                'email' => 'mod@example.com',
+                'password' => '123',
+                'roles' => ['ROLE_MOD'],
+                'userName' => 'mod'
+            ],
         ];
 
         foreach ($datas as $data) {

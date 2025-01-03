@@ -33,7 +33,7 @@ final class ForumVoter extends Voter
             case self::FORUM_EDIT:
                 // logic to determine if the user can EDIT
                 // return true or false
-                return $subject->getUser() === $user || in_array('ROLE_MOD', $user->getRoles());
+                return $subject->getUser() === $user || in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_MOD', $user->getRoles());
                 break;
         }
 
