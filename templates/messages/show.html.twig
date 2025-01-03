@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Forum{% endblock %}
+{% block title %}Forum
+{% endblock %}
 
 {% block body %}
 	<div class="container-fluid mt-4 h-100">
@@ -11,48 +12,80 @@
 				<div class="p-4 bg-white">
 					<h4 class="mb-4 text-black border-bottom pb-2">Sujets</h4>
 					<ul class="nav nav-pills flex-column gap-2">
-						{% for forum in forums %}
-								<li class="nav-item">
-									<a class="nav-link text-truncate text-dark hover-primary" href="{{ path('app_forum_show', {'forumId': forum.id}) }}">
-										<i class="bi bi-chat-left me-2">
-											{{ forum.title }}
-										</i>
-									</a>
-								</li>
+						{% for category in categories %}
+							<li>
+								<h6>{{ category.title }}</h6>
+							</li>
+							<ul class="nav nav-pills flex-column gap-2">
+								{% for sujet in category.forum %}
+									<li class="nav-item">
+										<a class="nav-link text-truncate text-dark hover-primary" href="{{ path('app_forum_show', {'forumId': sujet.id}) }}">
+											<i class="bi bi-chat-left me-2">
+												{{ sujet.title }}
+											</i>
+										</a>
+									</li>
+								{% endfor %}
+							</ul>
 						{% endfor %}
 					</ul>
 				</div>
 			</nav>
-	{# Section principale avec les messages #}
-			<div class="col-md-9 col-lg-10">
+			{# Section principale avec les messages #}
+			<div
+				class="col-md-9 col-lg-10">
+				{# Affichage du titre et de la description du Forum #}
 				<div class="card h-80">
 					<div class="card-header bg-warning text-white">
-						<h5 class="mb-0">{{ forum.description }}</h5>
+						<div class="d-flex flex-row my-2">
+							<h6 class="mx-2">Par
+								{{ forum.user.userName }}</h6>
+							<p class="mx-2 small">{{ forum.createdAt|date('Y-m-d H:i:s') }}</p>
+						</div>
+						<h4 class="mb-0 text-center mb-5 py-2">{{ forum.title }}</h4>
+						<div class="my-2 d-flex justify-content-between align-items-center">
+							<h5 class="mb-0">{{ forum.description }}</h5>
+							{% if is_granted('FORUM_EDIT',forum) %}
+								<div class="d-flex flex-row justify-content-end align-items-center">
+									<a class="mx-2" href="{{ path('app_forum_edit', {'id': forum.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+									{{ include('/messages/_delete_form.html.twig') }}
+								</div>
+							{% endif %}
+						</div>
 					</div>
 
-					{# Zone des messages #}
+					{# Affichage des commentaires liés aux Forums #}
 					<div class="card-body" style="height: calc(100vh - 300px); overflow-y: auto;">
 						<h4 class="text-center pt-5 fw-bold"></h4>
 						{% for comment in comments %}
-									<i class="bi bi-chat-left ps-2 me-2 my-2 card mx-auto border-card">
-										{{ comment.description }}
-										<a class="mx-2" href="{{ path('app_forum_comment_edit', {'forumId': forum.Id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-										<br>
-									</i>
+							<i class="bi bi-chat-left ps-2 me-2 my-2 card mx-auto border-card">
+								<h6 class="mx-2">Par
+									{{ comment.user.userName }}</h6>
+								<p class="mx-2 small">{{ forum.createdAt|date('Y-m-d H:i:s') }}</p>
+								<div class="my-2 d-flex justify-content-between align-items-center">
+									<p class="my-auto">{{ comment.description }}</p>
+									{% if is_granted('FORUM_COMMENT_EDIT',forum) %}
+										<div class="d-flex flex-row justify-content-end align-items-center">
+											<a class="mx-2" href="{{ path('app_forum_comment_edit', {'id': comment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+											{{ include('/messages/forum_comment_delete_form.html.twig') }}
+										</div>
+									{% endif %}
+								</div>
+							</i>
 						{% endfor %}
-								
-								<button class="btn btn-app bg-warning my-5">
-                					<a href="{{ path('app_forum_comment_add', {'forumId': forum.id} )}}" class="btn bg-warning btn-app">Ajouter un commentaire</a>
-								</button>
+
+						<button class="btn btn-app bg-warning my-5">
+							<a href="{{ path('app_forum_comment_add', {'forumId': forum.id} )}}" class="btn bg-warning btn-app">Ajouter un commentaire</a>
+						</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-    {# <a href="{{ path('app_forum_index') }}">back to list</a>
+	<a href="{{ path('app_forum_index') }}">back to list</a>
 
-    <a href="{{ path('app_forum_edit', {'id': forum.id}) }}">edit</a>
+	<a href="{{ path('app_forum_comment_edit', {'id': forum.id}) }}">edit</a>
 
-    {{ include('/Administration/forum/_delete_form.html.twig') }} #}
+	{{ include('/messages/_delete_form.html.twig') }}
 {% endblock %}

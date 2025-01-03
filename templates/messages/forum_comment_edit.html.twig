@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Commentaire{% endblock %}
+
+{% block body %}
+    <h1>Modification du Commentaire</h1>
+
+    {{ include('/Administration/forum_comment/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_forum_show', {'forumId': forumId}) }}">Retour au Forum</a>
+
+{% endblock %}
