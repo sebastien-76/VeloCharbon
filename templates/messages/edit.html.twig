@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit ForumComment{% endblock %}
+{% block title %}Modification Forum{% endblock %}
 
 {% block body %}
-    <h1>Edit ForumComment</h1>
+    <h1>Modification du Forum</h1>
 
-    {{ include('/Administration/forum_comment/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('/messages/_form.html.twig')}}
 
-    <a href="{{ path('app_forum_comment_index') }}">back to list</a>
-
-    {{ include('/Administration/forum_comment/_delete_form.html.twig') }}
+    <a href="{{ path('app_forum_show', {'forumId': forumId}) }}">Retour au Forum</a>
+    
 {% endblock %}

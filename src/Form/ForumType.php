@@ -24,6 +24,7 @@ class ForumType extends AbstractType
                 'multiple' => false, 
                 'expanded' => false,
             ])
+            ->add('description')
         ;
     }
 
