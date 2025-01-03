@@ -28,8 +28,9 @@
 						{% if is_granted('BLOGCOMMENT_EDIT', blogComment) %}
 							<div class="d-flex flex-row justify-content-end align-items-center py-2">
 								<a class="mx-2" href="{{ path('app_admin_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-								<twig:ShowBlog :blogComment="blogComment"/>
-							</div>
+								{# 								<twig:ShowBlog :blogComment="blogComment"/>
+								 #}
+								{% include('blog_comment/_delete_form.html.twig') %}							</div>
 						{% endif %}
 					</div>
 				</div>

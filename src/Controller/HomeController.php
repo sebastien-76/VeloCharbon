@@ -137,6 +137,8 @@ class HomeController extends AbstractController
         ]);
     }
 
+
+
     //Route de la page publique de suppression d'un commentaire d'une actualité
     #[Route('/blog/comment/{id}', name: 'app_blog_comment_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
     public function commentDelete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
@@ -148,6 +150,17 @@ class HomeController extends AbstractController
         }
 
         return $this->redirectToRoute('app_blog_show', ['id' => $blogId], Response::HTTP_SEE_OTHER);
+    }
+
+    //Route de la page publique de visualisation d'un commentaire d'une actualité
+    #[Route('/blog/comment/{id}', name: 'app_blog_comment_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
+    public function commentShow(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
+    {
+        $blog = $blogComment->getBlog();
+        return $this->render('blog/show.html.twig', [
+            'blog_comment' => $blogComment,
+            'blog' => $blog
+        ]);
     }
 
     //Route de la page publique de l'index des trajets

@@ -21,29 +21,12 @@ class ShowBlog extends AbstractController
     use DefaultActionTrait;
     use ValidatableComponentTrait;
 
-    public function __construct(private BlogRepository $blogRepository, private UserRepository $userRepository)
+    public function __construct(private BlogRepository $blogRepository)
     {
     }
-
-    #[LiveProp(writable: true)]
-    #[NotBlank]
-    public ?string $title = null;
-
-    #[LiveProp(writable: true)]
-    #[NotBlank]
-    public ?string $content = null;
-
-    #[LiveProp(writable: true)]
-    #[NotBlank]
-    public ?User $user = null;
 
     #[LiveProp(writable: true)]
     #[NotBlank]
     public ?BlogComment $blogComment = null;
 
-    #[ExposeInTemplate]
-    public function getUsers(): array
-    {
-        return $this->userRepository->findAll();
-    }
 }

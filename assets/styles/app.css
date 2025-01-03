@@ -19,6 +19,11 @@ body {
     background-color: var(--light-grey);
 }
 
+textarea {
+    width: 30rem;
+    height: 10rem;
+}
+
 .bg-dark-beige {
     background-color: var(--dark-beige);
 }
