@@ -4,14 +4,14 @@ namespace App\Controller\Administration;
 
 use App\Entity\BlogComment;
 use App\Form\BlogCommentType;
-use App\Repository\BlogCommentRepository;
 use App\Repository\BlogRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\BlogCommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 #[Route('/admin/blog/comment')]
@@ -45,7 +45,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_blog_comment_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_admin_blog_comment_show', methods: ['GET'], requirements: ['id' => Requirement::DIGITS])]
     public function show(BlogComment $blogComment): Response
     {
         return $this->render('/Administration/blog_comment/show.html.twig', [
@@ -53,7 +53,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_admin_blog_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_blog_comment_edit', methods: ['GET', 'POST'], requirements: ['id' => Requirement::DIGITS])]
     public function edit(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blogId = $blogComment->getBlog()->getId();
@@ -73,7 +73,7 @@ final class BlogCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_admin_blog_comment_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_blog_comment_delete', methods: ['POST'], requirements: ['id' => Requirement::DIGITS])]
     public function delete(Request $request, BlogComment $blogComment, EntityManagerInterface $entityManager): Response
     {
         $blogId = $blogComment->getBlog()->getId();
