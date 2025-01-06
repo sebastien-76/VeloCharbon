@@ -8,6 +8,6 @@
 	<button class="btn btn-app my-5">{{ button_label|default('Save') }}</button>
 </div>
 <button class="btn btn-app my-5">
-		<a href="{{ path('app_blog_show', {'id': blogId}) }}" class="btn btn-app">Retour à l'actualité</a>
+		<a href="{{ path('app_admin_blog_show', {'id': blogId}) }}" class="btn btn-app">Retour à l'actualité</a>
 	</button>
 {{ form_end(form, {render_rest: false}) }}

@@ -1,12 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edition trajet{% endblock %}
+{% block title %}Edition trajet
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-center my-5">Editer une étape</h1>
-    {{ include('/Administration/journey/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
-    <div class="w-50 d-flex justify-content-around">
-        <a class="btn btn-app" href="{{ path('app_admin_journey_show', {'id':journey.id}) }}">Retour au trajet</a>
-        {{ include('/Administration/journey/_delete_form.html.twig') }}
-    </div>
+	<h1 class="text-center my-5 lightbeige">Editer une étape</h1>
+
+	<div class="py-3 bg-lightbeige container rounded">
+		<div class="w-100 d-flex justify-content-end">
+			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_admin_journey_show', {'id':journey.id}) }}">Retour au trajet</a>
+		</div>
+		<div class="card w-75 mx-auto text-center border-card my-5">
+			{{ include('/Administration/journey/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+		</div>
+	</div>
 {% endblock %}

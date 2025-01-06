@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Carousel{% endblock %}
+{% block title %}New Carousel
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Carousel</h1>
+	<h1 class="text-center my-5 lightbeige">Ajouter une image</h1>
 
-    {{ include('Administration/carousel/_form.html.twig') }}
 
-    <a href="{{ path('app_carousel_index') }}">back to list</a>
+	<div class="card w-75 mx-auto  border-card my-3 py-3 bg-lightbeige rounded">
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_admin_carousel_index') }}">Retour au carousel</a>
+		</div>
+
+		<div class="card w-75 mx-auto text-center border-card my-5">
+			{{ include('Administration/carousel/_form.html.twig', {'button_label': 'Ajouter'}) }}
+		</div>
+	</div>
 {% endblock %}

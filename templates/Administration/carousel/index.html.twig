@@ -4,31 +4,35 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5">Les images du carousel</h1>
-	{# Bouton d'ajout d'une image #}
-	<div class="w-100 d-flex justify-content-center">
-		<a class="btn btn-app my-3" href="{{path('app_admin_carousel_new')}}">Ajouter une image</a>
-	</div>
-	{# Bouton de retour au menu d'administration #}
-	<div class="w-100 d-flex justify-content-end">
-		<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
-	</div>
-	{# Liste des images composant le carousel #}
-	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
-		{% for carousel in carousels%}
-			<div class="col-md-3 mb-4 d-flex">
-				<div class="card flex-fill">
-					<div class="card-body">
-						<h5 class="card-title">{{ carousel.imageName}}</h5>
-                        {# Affichage de l'image #}
-						{% if carousel.imageName %}
-							<img src="{{ vich_uploader_asset(carousel, 'imageFile') }}" class="card-img-top" alt="{{ carousel.imageName }}">
-						{% endif %}
-                        {# Bouton permettant de voir le détail de l'image #}
-						<a href="{{ path('app_admin_carousel_show', {'id': carousel.id}) }}" class="btn btn-app my-3">Voir la suite</a>
+	<h1 class="text-center my-5 lightbeige">Les images du carousel</h1>
+
+	<div
+		class="py-3 bg-lightbeige container rounded">
+		{# Bouton d'ajout d'une image #}
+		<div class="w-100 d-flex justify-content-center">
+			<a class="btn btn-app my-3" href="{{path('app_admin_carousel_new')}}">Ajouter une image</a>
+		</div>
+		{# Bouton de retour au menu d'administration #}
+		<div class="w-100 d-flex justify-content-end">
+			<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
+		</div>
+		{# Liste des images composant le carousel #}
+		<div class="row d-flex flex-wrap mx-auto my-2">
+			{% for carousel in carousels%}
+				<div class="col-md-3 mb-4 d-flex">
+					<div class="card flex-fill">
+						<div class="card-body">
+							<h5 class="card-title">{{ carousel.imageName}}</h5>
+							{# Affichage de l'image #}
+							{% if carousel.imageName %}
+								<img src="{{ vich_uploader_asset(carousel, 'imageFile') }}" class="card-img-top" alt="{{ carousel.imageName }}">
+							{% endif %}
+							{# Bouton permettant de voir le détail de l'image #}
+							<a href="{{ path('app_admin_carousel_show', {'id': carousel.id}) }}" class="btn btn-app my-3">Voir la suite</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}

@@ -1,11 +1,10 @@
 {{ form_start(form) }}
 {{ form_widget(form._token) }}
 
-<h5 class="my-3">Description du sujet</h5>
+<h5 class="my-3">Commentaire :</h5>
 {{ form_widget(form.description)}}
 
 <div class="d-flex justify-content-evenly">
-	<a class="btn btn-app my-5" href="{{ path('app_blog_show', {'id': blogId}) }}" class="btn btn-app">Retour à l'actualité</a>
-	<button class="btn btn-app my-5">{{ button_label|default('Ajouter') }}</button>
+	<button class="btn btn-app my-5 px-5">{{ button_label|default('Ajouter') }}</button>
 </div>
 {{ form_end(form, {render_rest: false}) }}

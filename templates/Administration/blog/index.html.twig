@@ -4,27 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5">Toutes les actualités</h1>
-	<div class="w-100 d-flex justify-content-center">
-		<a class="btn btn-app my-3" href="{{path('app_admin_blog_new')}}">Ajouter une actualité</a>
-	</div>
-	<div class="w-100 d-flex justify-content-end">
-		<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
-	</div>
-	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
-		{% for blog in blogs %}
-			<div class="col-md-3 mb-4 d-flex">
-				<div class="card flex-fill">
-					{% if blog.imageName %}
-						<img src="{{ vich_uploader_asset(blog, 'imageFile') }}" class="card-img-top" alt="{{ blog.title }}">
-					{% endif %}
-					<div class="card-body">
-						<h5 class="card-title">{{ blog.title }}</h5>
-						<p class="card-text">{{ blog.content|striptags|slice(0, 100) }}...</p>
-						<a href="{{ path('app_admin_blog_show', {'id': blog.id}) }}" class="btn btn-app">Lire la suite</a>
+	<h1 class="text-center my-5 lightbeige">Toutes les actualités</h1>
+
+	<div class="py-3 bg-lightbeige container rounded">
+		<div class="w-100 d-flex justify-content-center">
+			<a class="btn btn-app my-3" href="{{path('app_admin_blog_new')}}">Ajouter une actualité</a>
+		</div>
+		<div class="w-100 d-flex justify-content-end">
+			<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
+		</div>
+		<div class="row d-flex flex-wrap mx-auto my-2">
+			{% for blog in blogs %}
+				<div class="col-md-3 mb-4 d-flex">
+					<div class="card flex-fill">
+						{% if blog.imageName %}
+							<img src="{{ vich_uploader_asset(blog, 'imageFile') }}" class="card-img-top" alt="{{ blog.title }}">
+						{% endif %}
+						<div class="card-body">
+							<h5 class="card-title">{{ blog.title }}</h5>
+							<p class="card-text">{{ blog.content|striptags|slice(0, 100) }}...</p>
+							<a href="{{ path('app_admin_blog_show', {'id': blog.id}) }}" class="btn btn-app">Lire la suite</a>
+						</div>
 					</div>
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}

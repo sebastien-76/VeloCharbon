@@ -5,6 +5,10 @@
     font-weight: bold;
 }
 
+h1 {
+    font-size: 3rem;
+}
+
 p {
     font-size: 1.2rem;
     font-weight:300;
@@ -16,7 +20,7 @@ a {
 }
 
 body {
-    background-color: var(--light-grey);
+    background-color: var(--grey);
 }
 
 textarea {
@@ -24,8 +28,16 @@ textarea {
     height: 10rem;
 }
 
-.bg-dark-beige {
-    background-color: var(--dark-beige);
+.lightbeige {
+    color: var(--light-beige);
+}
+
+.white {
+    color: var(--white);
+}
+
+.bg-lightbeige {
+    background-color: var(--light-beige);
 }
 
 /* css de la nav bar */
@@ -38,6 +50,10 @@ textarea {
     color: var(--white)!important;
     font-weight: bold;
     font-size: 1.3rem;
+}
+.nav-a:hover {
+    color: var(--red)!important;
+    
 }
 
 .navbar-toggler-icon {
@@ -63,13 +79,21 @@ textarea {
     font-weight: bold;
 }
 
+
+/* css des boutons */
 .btn-app {
     background-color: var(--grey);
     color: var(--white);
     font-weight: bold;
 }
 
-.btn-app:hover {
+.btn-app-admin {
+    background-color: var(--light-beige);
+    color: var(--dark-grey);
+    font-weight: bold;
+}
+
+.btn-app:hover, .btn-app-admin:hover {
     background-color: var(--beige);
 }
 
@@ -78,7 +102,7 @@ textarea {
 }
 
 .carousel-image {
-    height: 300px; /* Ajustez cette valeur selon vos besoins */
+    height: 400px; /* Ajustez cette valeur selon vos besoins */
     object-fit: cover; /* Cette propriété permet de garder les proportions de l'image */
 }
 

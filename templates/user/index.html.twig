@@ -17,7 +17,7 @@
 					<div class="card-body">
 						<h5 class="card-title">{{ user.userName }}</h5>
 						<h5 class="card-title">{{ user.email }}</h5>
-                        <p class="card-text">Créé le : {{ user.createdAt|date('Y-m-d H:i:s') }}</p>
+                        <p class="card-text">Créé(e) le : {{ user.createdAt|date('Y-m-d H:i:s') }}</p>
 						<a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn btn-app">Lire la suite</a>
 					</div>
 				</div>

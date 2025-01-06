@@ -4,47 +4,51 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5">{{ blog.title }}</h1>
+	<h1 class="text-center my-5 lightbeige">{{ blog.title }}</h1>
 
-	<div class="card w-75 mx-auto text-center border-card">
-		{% if blog.imageName %}
-			<img class="card-img-top w-25 mx-auto" src="{{ vich_uploader_asset(blog,blog.imageFile) }}" alt="{{ blog.imageName }}">
-		{% endif %}
+	<div class="card w-75 mx-auto  border-card my-3 py-3 bg-lightbeige rounded">
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_admin_blog_index') }}">Retour aux actualités</a>
+		</div>
 
-		<div class="card-body">
-			<h5 class="card-text mb-5 py-3">
-				{{ blog.content}}
-			</h5>
-			{% for blogComment in blog.blogComment %}
-				<div class="card w-75 mx-auto my-2 text-center d-flex flex-column justify-content-between">
-					<div class="d-flex flex-row my-2">
-						<h6 class="mx-2">
-							{{ blogComment.user.userName }}</h6>
-						<p class="mx-2 small">
-							{{ blogComment.createdAt|date('Y-m-d H:i:s') }}</p>
+		<div class="card w-75 mx-auto border-card my-5">
+			{% if blog.imageName %}
+				<img class="card-img-top w-25 mx-auto" src="{{ vich_uploader_asset(blog,blog.imageFile) }}" alt="{{ blog.imageName }}">
+			{% endif %}
+
+			<div class="card-body">
+				<h5 class="card-text text-center mb-5 py-3">
+					{{ blog.content}}
+				</h5>
+				{% for blogComment in blog.blogComment %}
+					<div class="card w-75 mx-auto my-2 text-center d-flex flex-column justify-content-between">
+						<div class="d-flex flex-row my-2">
+							<h6 class="mx-2">
+								{{ blogComment.user.userName }}</h6>
+							<p class="mx-2 small">
+								{{ blogComment.createdAt|date('Y-m-d H:i:s') }}</p>
+						</div>
+						<div>
+							<p class="my-1">{{ blogComment.description }}</p>
+							{% if is_granted('BLOGCOMMENT_EDIT', blogComment) %}
+								<div class="d-flex flex-row justify-content-end align-items-center py-2">
+									<a class="mx-2" href="{{ path('app_admin_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+									{# 								<twig:ShowBlog :blogComment="blogComment"/>
+																																			 #}
+									{% include('Administration/blog_comment/_delete_form.html.twig') %}
+								</div>
+							{% endif %}
+						</div>
 					</div>
-					<div>
-						<p class="my-1">{{ blogComment.description }}</p>
-						{% if is_granted('BLOGCOMMENT_EDIT', blogComment) %}
-							<div class="d-flex flex-row justify-content-end align-items-center py-2">
-								<a class="mx-2" href="{{ path('app_admin_blog_comment_edit', {'id':blogComment.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
-								{# 								<twig:ShowBlog :blogComment="blogComment"/>
-								 #}
-								{% include('blog_comment/_delete_form.html.twig') %}							</div>
-						{% endif %}
-					</div>
+				{% endfor %}
+				<div class="d-flex flex-row justify-content-center align-items-center">
+					<a class="btn btn-app my-5 mx-2" href="{{ path('app_admin_blog_comment_add', {'blogId': blog.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
 				</div>
-			{% endfor %}
-			<button class="btn btn-app my-5">
-				<a href="{{ path('app_admin_blog_comment_add', {'blogId': blog.id} )}}" class="btn btn-app">Ajouter un commentaire</a>
-			</button>
-			{% if is_granted('ROLE_ADMIN') %}
-				<div class=" d-flex flex-row justify-content-end align-items-center">
+				<div class=" d-flex flex-row justify-content-end align-items-center my-2">
 					<a class="mx-2" href="{{ path('app_admin_blog_edit', {'id':blog.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
 					{{ include('/Administration/blog/_delete_form.html.twig') }}
 				</div>
-			{% endif %}
+			</div>
 		</div>
 	</div>
-
 {% endblock %}

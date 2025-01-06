@@ -1,10 +1,10 @@
 {{ form_start(form) }}
-<div class="card w-75 mx-auto text-center border-card">
+<div class="card w-75 mx-auto text-center border-card my-3">
 	<div class="card-body">
 		<h5 class="my-3">Nom</h5>
-		{{ form_widget(form.userName)}}
+		{{ form_widget(form.userName, {'attr': {'class': 'w-50 mx-auto'}})}}
 		<h5 class="my-3">email</h5>
-		{{ form_widget(form.email)}}
+		{{ form_widget(form.email, {'attr': {'class': 'w-50 mx-auto'}})}}
 		{% if is_granted('ROLE_ADMIN') %}
 			<h5 class="my-3">Roles :</h5>
 			{{ form_widget(form.roles)}}

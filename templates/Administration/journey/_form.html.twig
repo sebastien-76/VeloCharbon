@@ -1,7 +1,6 @@
 {{ form_start(form) }}
 {{ form_widget(form._token) }}
 
-<div class="card w-75 my-5 mx-auto text-center border-card">
 	<h5 class="my-3">Etape</h5>
 	{{ form_widget(form.stage, {'attr': {'class': 'w-50 mx-auto'}})}}
 
@@ -14,8 +13,6 @@
 	<h5 class="my-3">Modifier le gpx</h5>
 	{{ form_widget(form.gpxFile)}}
 
-	<button class="w-25 btn btn-app my-5 mx-auto">{{ button_label|default('Save') }}</button>
-
-</div>
+	<button class="btn btn-app my-5 px-5">{{ button_label|default('Save') }}</button>
 
 {{ form_end(form, {render_rest: false}) }}

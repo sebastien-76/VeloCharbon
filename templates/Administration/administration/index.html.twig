@@ -3,29 +3,29 @@
 {% block title %}Admin{% endblock %}
 
 {% block body %}
-<h1 class="text-center my-5">Bienvenue sur la page d'administration de VéloCharbon</h1>
-<p class="text-center my-3">L'accès aux différentes sections se fait par les boutons ci-dessous</p>
+<h1 class="text-center my-5 lightbeige">Bienvenue sur la page d'administration de VéloCharbon</h1>
+<h4 class="text-center my-3 lightbeige">L'accès aux différentes sections se fait par les boutons ci-dessous</h4>
 <div class="container">
-    <div class="row my-2">
+    <div class="row my-5">
         <div class="col">
-            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_journey_index')}}">Les Trajets</a>
+            <a class="btn btn-app-admin my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_journey_index')}}">Les Trajets</a>
         </div>
         <div class="col">
-            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_blog_index')}}">Les Actualités</a>
+            <a class="btn btn-app-admin my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_blog_index')}}">Les Actualités</a>
         </div>
         <div class="col">
-            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_forum_index')}}">Le Forum</a>
+            <a class="btn btn-app-admin my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_forum_index')}}">Le Forum</a>
         </div>
     </div>
-    <div class="row my-2">
+    <div class="row my-5">
         <div class="col">
-            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_carousel_index')}}">Le Carousel</a>
+            <a class="btn btn-app-admin my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_carousel_index')}}">Le Carousel</a>
         </div>
         <div class="col">
-            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_category_index')}}">Les Categories</a>
+            <a class="btn btn-app-admin my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_category_index')}}">Les Categories</a>
         </div>
         <div class="col">
-            <a class="btn btn-app my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_user_index')}}">Les utilisateurs</a>
+            <a class="btn btn-app-admin my-5 w-100 h-100 d-flex align-items-center justify-content-center" href="{{path('app_admin_user_index')}}">Les utilisateurs</a>
         </div>
     </div>
 </div>
