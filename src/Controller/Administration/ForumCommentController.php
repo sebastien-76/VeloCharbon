@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/forum/comment')]
 final class ForumCommentController extends AbstractController
 {
-    #[Route(name: 'app_administration_forum_comment_index', methods: ['GET'])]
+    #[Route(name: 'app_admin_forum_comment_index', methods: ['GET'])]
     public function index(ForumCommentRepository $forumCommentRepository): Response
     {
         return $this->render('/Administration/forum_comment/index.html.twig', [
@@ -22,7 +22,7 @@ final class ForumCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_administration_forum_comment_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_admin_forum_comment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $forumComment = new ForumComment();
@@ -33,7 +33,7 @@ final class ForumCommentController extends AbstractController
             $entityManager->persist($forumComment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_administration_forum_comment_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_forum_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('/Administration/forum_comment/new.html.twig', [
@@ -42,7 +42,7 @@ final class ForumCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_administration_forum_comment_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_admin_forum_comment_show', methods: ['GET'])]
     public function show(ForumComment $forumComment): Response
     {
         return $this->render('/Administration/forum_comment/show.html.twig', [
@@ -50,7 +50,7 @@ final class ForumCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_administration_forum_comment_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_admin_forum_comment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ForumComment $forumComment, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ForumCommentType::class, $forumComment);
@@ -59,7 +59,7 @@ final class ForumCommentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_administration_forum_comment_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_forum_comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('/Administration/forum_comment/edit.html.twig', [
@@ -68,7 +68,7 @@ final class ForumCommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_administration_forum_comment_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_admin_forum_comment_delete', methods: ['POST'])]
     public function delete(Request $request, ForumComment $forumComment, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$forumComment->getId(), $request->getPayload()->getString('_token'))) {
@@ -76,6 +76,6 @@ final class ForumCommentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_administration_forum_comment_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_forum_comment_index', [], Response::HTTP_SEE_OTHER);
     }
 }

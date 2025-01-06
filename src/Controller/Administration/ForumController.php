@@ -16,15 +16,15 @@ use Symfony\Component\Routing\Requirement\Requirement;
 #[Route('/admin/forum')]
 final class ForumController extends AbstractController
 {
-    #[Route(name: 'app_administration_forum_index', methods: ['GET'])]
+    #[Route(name: 'app_admin_forum_index', methods: ['GET'])]
     public function index(ForumRepository $forumRepository): Response
     {
-        return $this->render('forum/index.html.twig', [
+        return $this->render('Administration/forum/index.html.twig', [
             'forums' => $forumRepository->findAll(),
         ]);
     }
 
-    #[Route( '/new', name: 'app_administration_forum_new', methods: ['GET', 'POST'])]
+    #[Route( '/new', name: 'app_admin_forum_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $forum = new Forum();
@@ -35,7 +35,7 @@ final class ForumController extends AbstractController
             $entityManager->persist($forum);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_administration_forum_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_forum_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('/Administration/forum/new.html.twig', [
@@ -44,7 +44,7 @@ final class ForumController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_administration_forum_show', methods: ['GET'], requirements:['id' => Requirement::DIGITS])]
+    #[Route('/{id}', name: 'app_admin_forum_show', methods: ['GET'], requirements:['id' => Requirement::DIGITS])]
     public function show(Forum $forum): Response
     {
         return $this->render('/Administration/forum/show.html.twig', [
@@ -52,7 +52,7 @@ final class ForumController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_administration_forum_edit', methods: ['GET', 'POST'], requirements:['id' => Requirement::DIGITS])]
+    #[Route('/{id}/edit', name: 'app_admin_forum_edit', methods: ['GET', 'POST'], requirements:['id' => Requirement::DIGITS])]
     public function edit(Request $request, Forum $forum, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ForumType::class, $forum);
@@ -61,7 +61,7 @@ final class ForumController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_administration_forum_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admin_forum_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('/Administration/forum/edit.html.twig', [
@@ -70,7 +70,7 @@ final class ForumController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_administration_forum_delete', methods: ['POST'], requirements:['id' => Requirement::DIGITS])]
+    #[Route('/{id}', name: 'app_admin_forum_delete', methods: ['POST'], requirements:['id' => Requirement::DIGITS])]
     public function delete(Request $request, Forum $forum, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$forum->getId(), $request->getPayload()->getString('_token'))) {
@@ -78,6 +78,6 @@ final class ForumController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_administration_forum_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admin_forum_index', [], Response::HTTP_SEE_OTHER);
     }
 }

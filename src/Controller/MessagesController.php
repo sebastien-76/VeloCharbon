@@ -34,6 +34,29 @@ class MessagesController extends AbstractController
         ]);
     }
 
+    #[Route('/forum/new', name: 'app_forum_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, TokenInterface $token): Response
+    {
+        $forum = new Forum();
+        $userId = $token->getUser()->getId();
+        $user = $userRepository->find($userId);
+        $form = $this->createForm(ForumType::class, $forum);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $forum->setUser($user);
+            $entityManager->persist($forum);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_forum_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('messages/new.html.twig', [
+            'forum' => $forum,
+            'form' => $form,
+        ]);
+    }
+
     #[Route('/forum/{forumId}', name: 'app_forum_show', methods: ['GET'], requirements:['id' => Requirement::DIGITS])]
     public function show(int $forumId, ForumRepository $forumRepository, CategoryRepository $categoryRepository): Response
     {
