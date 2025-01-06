@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 final class ForumCommentVoter extends Voter
 {
-    public const FORUM_COMMENT_EDIT = 'POST_EDIT';
+    public const FORUM_COMMENT_EDIT = 'FORUM_COMMENT_EDIT';
 
     protected function supports(string $attribute, mixed $subject): bool
     {

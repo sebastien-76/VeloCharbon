@@ -12,8 +12,8 @@
                 <td>{{ forum.createdAt ? forum.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ forum.updatedAt ? forum.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_forum_show', {'id': forum.id}) }}">show</a>
-                    <a href="{{ path('app_forum_edit', {'id': forum.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_forum_show', {'id': forum.id}) }}">show</a>
+                    <a href="{{ path('app_admin_forum_edit', {'id': forum.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -24,5 +24,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_forum_new') }}">Create new</a>
+    <a href="{{ path('app_admin_forum_new') }}">Create new</a>
 {% endblock %}
