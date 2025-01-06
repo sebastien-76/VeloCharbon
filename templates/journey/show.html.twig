@@ -14,13 +14,15 @@
 			<p class="card-text my-5">
 				{{ journey.description}}
 			</p>
-			{% include "Administration/map/_map.html.twig" %}
+			{% include "map/_map.html.twig" %}
 		</div>
-		<div class="w-100 d-flex justify-content-center mt-3 mb-5">
-			{% if is_granted('ROLE_MOD') %}
-				<a class="btn btn-app px-5" href="{{ path('app_journey_edit', {'id':journey.id}) }}">Modifier le trajet</a>
-			{% endif %}
-		</div>
+		{% if is_granted('ROLE_MOD') %}
+			<div class="d-flex flex-row justify-content-end align-items-center">
+				<a class="mx-2 " href="{{ path('app_journey_edit', {'id':journey.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+				{{ include('journey/_delete_form.html.twig') }}
+			</div>
+		{% endif %}
+
 	</div>
 
 {% endblock %}
