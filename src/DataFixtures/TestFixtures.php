@@ -116,6 +116,15 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
     public function loadBlogs(): void
     {
         $userRepository = $this->manager->getRepository(User::class);
+        $image = [
+            'Bethune_beffroi.jpg',
+            'Bollaert.jpg',
+            'carte.png',
+            'dragon_calais.jpg',
+            'estaminet.jpg',
+            'materiel.jpg',
+            'materiel2.avif',
+            'velo.avif'];
 
         $users = $userRepository->findAll();
 
@@ -123,6 +132,8 @@ class TestFixtures extends Fixture implements FixtureGroupInterface
             $blog = new Blog();
             $blog->setTitle($this->faker->word());
             $blog->setContent($this->faker->sentence());
+            $number = $this->faker->numberBetween(0, 7);
+            $blog->setImageName($image[$number]);
             $user = $this->faker->randomElement($users);
             $blog->setUser($user);
             $this->manager->persist($blog);
