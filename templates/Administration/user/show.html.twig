@@ -4,39 +4,40 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5">Utilisateur</h1>
-	<div class="card w-75 mx-auto text-center border-card">
-		<div class="card-body">
-			<h5>Email :</h5>
-			<p>{{ user.email }}</p>
+	<h1 class="text-center my-5 lightbeige">Utilisateur</h1>
 
-			<h5>Roles :</h5>
-			{% for role in user.roles %}
-				<p>{{ role }}</p>
-			{% endfor %}
-
-			<h5>Nom :</h5>
-			<p>{{ user.userName }}</p>
-
-			<h5>Date de création :</h5>
-			<p>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</p>
-
-			<h5>Dernière modification :</h5>
-			<p>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
-
-			{% if user.deletedAt %}
-				<h5>Date de suppression :</h5>
-				<p>{{ user.deletedAt|date('Y-m-d H:i:s') }}</p>
-			{% endif %}
+	<div class="py-3 bg-lightbeige container rounded">
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_admin_user_index') }}">Retour aux utilisateurs</a>
 		</div>
-	</div>
-	<div class="w-50 d-flex justify-content-around align-content-center mx-auto">
-		<button class="btn btn-app my-5">
-			<a href="{{ path('app_admin_user_index') }}">Les utilisateurs</a>
-		</button>
-		<button class="btn btn-app my-5">
-			<a href="{{ path('app_admin_user_edit', {'id': user.id}) }}">Modifier</a>
-		</button>
-		{{ include('Administration/user/_delete_form.html.twig') }}
+		<div class="card w-75 mx-auto text-center border-card my-5">
+			<div class="card-body">
+				<h5>Email :</h5>
+				<p>{{ user.email }}</p>
+
+				<h5>Roles :</h5>
+				{% for role in user.roles %}
+					<p>{{ role }}</p>
+				{% endfor %}
+
+				<h5>Nom :</h5>
+				<p>{{ user.userName }}</p>
+
+				<h5>Date de création :</h5>
+				<p>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+
+				<h5>Dernière modification :</h5>
+				<p>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</p>
+
+				{% if user.deletedAt %}
+					<h5>Date de suppression :</h5>
+					<p>{{ user.deletedAt|date('Y-m-d H:i:s') }}</p>
+				{% endif %}
+			</div>
+		</div>
+		<div class=" d-flex flex-row justify-content-end align-items-center my-2">
+			<a class="mx-2" href="{{ path('app_admin_user_edit', {'id':user.id}) }}"><img src="{{ asset('../assets/images/icones/pencil-square.svg') }}" alt="edition"></a>
+			{{ include('/Administration/user/_delete_form.html.twig') }}
+		</div>
 	</div>
 {% endblock %}

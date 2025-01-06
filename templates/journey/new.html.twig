@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajout trajet{% endblock %}
+{% block title %}Ajout trajet
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-center my-5">Ajouter un trajet</h1>
+	<h1 class="text-center my-5 lightbeige">Ajouter un trajet</h1>
 
-    {{ include('journey/_form.html.twig', {'button_label': 'Enregistrer'}) }}
-
-    <a href="{{ path('app_journey_index') }}">retour aux trajets</a>
+	<div class="py-3 bg-lightbeige container rounded">
+		<div class="d-flex justify-content-end">
+			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_journey_index') }}">Retour aux trajets</a>
+		</div>
+		{{ include('journey/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+	</div>
 {% endblock %}

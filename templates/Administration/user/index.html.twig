@@ -4,33 +4,34 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5">Liste des utilisateurs</h1>
-	{# Bouton d'ajout d'un utilisateur #}
-	<div class="w-100 d-flex justify-content-center">
-		<a class="btn btn-app my-5" href="{{ path('app_admin_user_new') }}">Ajouter un Utilisateur</a>
-	</div>
-	{# Bouton de retour au menu d'administration #}
-	<div class="w-100 d-flex justify-content-end">
-		<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
-	</div>
-	{# Liste des utilisateurs #}
-	<div class="row d-flex flex-wrap w-75 mx-auto my-2">
-		{% for user in users %}
-			<div class="col-md-3 mb-4 d-flex">
-				<div class="card flex-fill">
-					<div class="card-body">
-						<h5 class="card-title">{{ user.userName }}</h5>
-						<h5 class="card-title">{{ user.email }}</h5>
-						<p class="card-text">Créé le :
-							{{ user.createdAt|date('Y-m-d H:i:s') }}</p>
-						{# Bouton d'accès au détail d'un utilisateur #}
-						<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-app">Lire la suite</a>
+	<h1 class="text-center my-5 lightbeige">Liste des utilisateurs</h1>
+
+	<div
+		class="py-3 bg-lightbeige container rounded">
+
+		{# Bouton de retour au menu d'administration #}
+		<div class="w-100 d-flex justify-content-end">
+			<a class="btn btn-app mt-2 mb-4 me-5" href="{{path('app_administration')}}">Retour a l'accueil admin</a>
+		</div>
+		{# Liste des utilisateurs #}
+		<div class="row d-flex flex-wrap mx-auto my-2">
+			{% for user in users %}
+				<div class="col-md-3 mb-4 d-flex">
+					<div class="card flex-fill">
+						<div class="card-body">
+							<h5 class="card-title">{{ user.userName }}</h5>
+							<h5 class="card-title">{{ user.email }}</h5>
+							<p class="card-text">Créé(e) le :
+								{{ user.createdAt|date('Y-m-d H:i:s') }}</p>
+							{# Bouton d'accès au détail d'un utilisateur #}
+							<a href="{{ path('app_admin_user_show', {'id': user.id}) }}" class="btn btn-app">Lire la suite</a>
+						</div>
 					</div>
 				</div>
-			</div>
 
-		{% else %}
-			<p>Aucun utilisateur trouvé!</p>
-		{% endfor %}
+			{% else %}
+				<p>Aucun utilisateur trouvé!</p>
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}
