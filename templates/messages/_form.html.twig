@@ -1,4 +1,11 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_widget(form._token) }}
+<h5 class="my-3">Titre du Forum</h5>
+{{ form_widget(form.title, {'attr': {'class': 'w-50 mx-auto'}} )}}
+{{ form_widget(form.category)}}
+<h3>Description</h3>
+{{ form_widget(form.description, {'attr': {'class': 'w-50 mx-auto'}})}}
+
+<button class="btn btn-app my-5 px-5 position-absolute top-100 start-50 translate-middle">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form, {render_rest: false}) }}
+

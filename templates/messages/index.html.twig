@@ -10,7 +10,11 @@
 			{# Sidebar avec la liste des rooms #}
 			<nav class="col-md-3 bg-warning col-lg-2 sidebar shadow-sm h-100">
 				<div class="p-4 bg-white">
-					<h4 class="mb-4 text-black border-bottom pb-2">Sujets</h4>
+					<h4 class="mb-4 text-black border-bottom pb-2">Sujets
+						<button class="btn btn-app bg-warning my-5">
+							<a href="{{ path('app_forum_new')}}" class="btn bg-warning btn-app">Créer un nouveau Forum</a>
+						</button>
+					</h4>
 					<ul class="nav nav-pills flex-column gap-2">
 						{% for category in categories %}
 							<li>
@@ -47,24 +51,24 @@
 		</div>
 
 		{# {% for forum in forums %}
-		            <tr>
-		                <td>{{ forum.id }}</td>
-		                <td>{{ forum.title }}</td>
-		                <td>{{ forum.deletedAt ? forum.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
-		                <td>{{ forum.createdAt ? forum.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-		                <td>{{ forum.updatedAt ? forum.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-		                <td>
-		                    <a href="{{ path('app_forum_show', {'id': forum.id}) }}">show</a>
-		                    <a href="{{ path('app_forum_edit', {'id': forum.id}) }}">edit</a>
-		                </td>
-		            </tr>
-		        {% else %}
-		            <tr>
-		                <td colspan="6">no records found</td>
-		            </tr>
-		        {% endfor %}
-		        </tbody>
-		    </table> #}
+				            <tr>
+				                <td>{{ forum.id }}</td>
+				                <td>{{ forum.title }}</td>
+				                <td>{{ forum.deletedAt ? forum.deletedAt|date('Y-m-d H:i:s') : '' }}</td>
+				                <td>{{ forum.createdAt ? forum.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+				                <td>{{ forum.updatedAt ? forum.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+				                <td>
+				                    <a href="{{ path('app_forum_show', {'id': forum.id}) }}">show</a>
+				                    <a href="{{ path('app_forum_edit', {'id': forum.id}) }}">edit</a>
+				                </td>
+				            </tr>
+				        {% else %}
+				            <tr>
+				                <td colspan="6">no records found</td>
+				            </tr>
+				        {% endfor %}
+				        </tbody>
+				    </table> #}
 
 		{# <a href="{{ path('app_forum_new') }}">Create new</a> #}
 	{% endblock %}

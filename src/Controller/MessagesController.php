@@ -35,7 +35,7 @@ class MessagesController extends AbstractController
     }
 
     #[Route('/forum/new', name: 'app_forum_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, TokenInterface $token): Response
+    public function newForum(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, TokenInterface $token): Response
     {
         $forum = new Forum();
         $userId = $token->getUser()->getId();
@@ -92,7 +92,7 @@ class MessagesController extends AbstractController
             return $this->redirectToRoute('app_forum_show', ['forumId'=> $forumId], Response::HTTP_SEE_OTHER); 
         }
 
-        return $this->render('/messages/new.html.twig', [
+        return $this->render('/messages/forum_comment_new.html.twig', [
             'forumId' => $forumId,
             'forumComment' => $forumComment,
             'form' => $form,

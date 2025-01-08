@@ -4,15 +4,15 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-5 lightbeige">Ajouter un Forum</h1>
+	<h1 class="text-center my-5 lightbeige">Ajouter une actualité</h1>
 
 	<div class="card w-75 mx-auto  border-card my-3 py-3 bg-lightbeige rounded">
 		<div class="d-flex justify-content-end">
-			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_forum_index') }}">Retour aux Forums</a>
+			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_forum_show', {'forumId': forumId} ) }}">Retour aux actualités</a>
 		</div>
 
 		<div class="card w-75 mx-auto text-center border-card my-5">
-			{{ include('messages/_form.html.twig') }}
+			{{ include('messages/forum_comment_form.html.twig') }}
 		</div>
 	</div>
 	{% endblock %}
