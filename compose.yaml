@@ -1,25 +1,52 @@
-
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-16}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-!ChangeMe!}
-      POSTGRES_USER: ${POSTGRES_USER:-app}
-    healthcheck:
-      test: ["CMD", "pg_isready", "-d", "${POSTGRES_DB:-app}", "-U", "${POSTGRES_USER:-app}"]
-      timeout: 5s
-      retries: 5
-      start_period: 60s
+  php:
+    build: ./docker/php
     volumes:
-      - database_data:/var/lib/postgresql/data:rw
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+      - .:/var/www:delegated
+    depends_on:
+      - database
+    networks:
+      - veloCharbon
+
+  nginx:
+    build: ./docker/nginx
+    ports:
+     - "8000:80"
+    volumes:
+      - ./public:/var/www/public:delegated
+    depends_on:
+     - php
+    networks:
+      - veloCharbon           
+
+  database:
+    image: mariadb:latest
+    environment:
+      MARIADB_USER: "root"
+      MARIADB_ROOT_PASSWORD: "test"
+      MARIADB_DATABASE: "veloCharbon"
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'no'
+    volumes:
+      - database_data:/var/lib/mysql:rw
+      - ./var/mysql:/var/www/var 
+    networks:
+      - veloCharbon
+
+  adminer:
+    image: adminer:latest
+    depends_on:
+      - database
+    environment:
+      APP_ENV: dev
+      ADMINER_DESIGN: pepa-linha
+      ADMINER_DEFAULT_SERVER: 
+    ports:
+      - "8082:8080"
+    networks:
+      - veloCharbon
+
+networks:
+  veloCharbon:
 
 volumes:
-###> doctrine/doctrine-bundle ###
-  database_data:
-###< doctrine/doctrine-bundle ###
+  database_data:      

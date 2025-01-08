@@ -8,12 +8,10 @@
 		<div
 			class="row">
 			{# Sidebar avec la liste des rooms #}
-			<nav class="col-md-3 bg-warning col-lg-2 sidebar shadow-sm h-100">
+			<nav class="col-md-3 bg-gold col-lg-2 sidebar shadow-sm h-100">
 				<div class="p-4 bg-white">
-					<h4 class="mb-4 text-black border-bottom pb-2">Sujets
-						<button class="btn btn-app bg-warning my-5">
-							<a href="{{ path('app_forum_new')}}" class="btn bg-warning btn-app">Créer un nouveau Forum</a>
-						</button>
+					<h4 class="mb-4 border-bottom pb-2">Sujets
+							<a href="{{ path('app_forum_new')}}" class="btn btn-app my-3">Créer un nouveau Forum</a>
 					</h4>
 					<ul class="nav nav-pills flex-column gap-2">
 						{% for category in categories %}
@@ -37,8 +35,8 @@
 				{# Section principale avec les messages #}
 				<div class="col-md-9 col-lg-10">
 					<div class="card h-80">
-						<div class="card-header bg-warning text-white">
-							<h5 class="mb-0">Messages</h5>
+						<div class="card-header bg-gold">
+							<h5 class="mb-0 white">Messages</h5>
 						</div>
 
 						{# Zone des messages #}
