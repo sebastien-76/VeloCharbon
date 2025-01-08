@@ -16,7 +16,6 @@ COPY . /var/www
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
-RUN chown -R www-data:www-data /var/www
 
 RUN git config --global --add safe.directory /var/www
 
