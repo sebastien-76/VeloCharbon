@@ -36,6 +36,10 @@ textarea {
     color: var(--white);
 }
 
+.dark-grey {
+    color: var(--dark-grey);
+}
+
 .bg-lightbeige {
     background-color: var(--light-beige);
 }

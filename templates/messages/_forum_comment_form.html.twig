@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+{{ form_widget(form._token) }}
+
+<h5 class="my-3">Commentaire</h5>
+{{ form_widget(form.description, {'attr': {'class': 'w-50 mx-auto'}})}}
+
+<div class="d-flex justify-content-evenly">
+	<button class="btn btn-app my-5 px-5">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form, {render_rest: false}) }}

@@ -1,11 +1,17 @@
 {{ form_start(form) }}
 {{ form_widget(form._token) }}
-<h5 class="my-3">Titre du Forum</h5>
-{{ form_widget(form.title, {'attr': {'class': 'w-50 mx-auto'}} )}}
-{{ form_widget(form.category)}}
-<h3>Description</h3>
-{{ form_widget(form.description, {'attr': {'class': 'w-50 mx-auto'}})}}
 
-<button class="btn btn-app my-5 px-5 position-absolute top-100 start-50 translate-middle">{{ button_label|default('Enregistrer') }}</button>
+<div class="card w-75 mx-auto text-center border-card my-5">
+	<h5 class="my-3">Titre du Forum</h5>
+	{{ form_widget(form.title, {'attr': {'class': 'w-50 mx-auto'}}
+	)}}
+	<h3 class="my-2">Catégorie</h3>
+	{{ form_widget(form.category, {'attr': {'class': 'w-50 mx-auto'}})}}
+	<h3 class="my-2">Description</h3>
+	{{ form_widget(form.description, {'attr': {'class': 'w-50 mx-auto'}})}}
+	<div class="d-flex justify-content-evenly">
+		<button class="btn btn-app my-5 px-5">{{ button_label|default('Enregistrer') }}</button>
+	</div>
+</div>
+
 {{ form_end(form, {render_rest: false}) }}
-

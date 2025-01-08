@@ -38,8 +38,7 @@ class MessagesController extends AbstractController
     public function newForum(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, TokenInterface $token): Response
     {
         $forum = new Forum();
-        $userId = $token->getUser()->getId();
-        $user = $userRepository->find($userId);
+        $user = $token->getUser();
         $form = $this->createForm(ForumType::class, $forum);
         $form->handleRequest($request);
 
@@ -74,7 +73,7 @@ class MessagesController extends AbstractController
     }
 
     #[route('/add/{forumId}', name: 'app_forum_comment_add', methods: ['GET', 'POST'])]
-    public function add(Request $request, EntityManagerInterface $entityManager, int $forumId, ForumRepository $forumRepository, TokenInterface $token, UserRepository $userRepository): Response
+    public function add(Request $request, EntityManagerInterface $entityManager, int $forumId, ForumRepository $forumRepository, TokenInterface $token): Response
     {
 
         $forum = $forumRepository->find($forumId);

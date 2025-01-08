@@ -11,8 +11,6 @@
 			<a class="btn btn-app me-5 my-2 px-5" href="{{ path('app_forum_index') }}">Retour aux Forums</a>
 		</div>
 
-		<div class="card w-75 mx-auto text-center border-card my-5">
-			{{ include('messages/_form.html.twig') }}
-		</div>
+		{{ include('messages/_form.html.twig') }}
 	</div>
-	{% endblock %}
+{% endblock %}
